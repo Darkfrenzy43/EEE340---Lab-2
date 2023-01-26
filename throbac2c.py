@@ -4,10 +4,12 @@ translation to C for each node and and stores this in the `self.c_translation`
 dictionary. The complete program translation will be for the root of the
 tree, which is the `ScriptContext` node.
 
-Author: TODO: your names here
+Author: OCdt Aaron Brown and OCdt Liethan Velasco
 
-Version: TODO: submission date here
+Version: February 9 2023.
 """
+
+
 
 from throbac.ThrobacListener import ThrobacListener
 from throbac.ThrobacParser import ThrobacParser
@@ -113,7 +115,7 @@ class Throbac2CTranslator(ThrobacListener):
         pass
 
     def exitBool(self, ctx: ThrobacParser.BoolContext):
-        pass
+        print("\nEnountered a boolean.");
 
     def exitVariable(self, ctx: ThrobacParser.VariableContext):
         pass
@@ -125,7 +127,7 @@ class Throbac2CTranslator(ThrobacListener):
         pass
 
     def exitMulDiv(self, ctx: ThrobacParser.MulDivContext):
-        pass
+        print("\nMultiplication happened. ")
 
     def exitFuncCall(self, ctx: ThrobacParser.FuncCallContext):
-        pass
+        print("\nFunction was called.");
