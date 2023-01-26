@@ -90,16 +90,16 @@ def main():
     parser_file = parserName + '.py'
     if not os.path.exists(lexer_file):
         print("[ERROR] Can't find lexer file {}!".format(lexer_file))
-        print(os.path.realpath('.'))
+        print(os.path.realpath(''))
         exit(1)
     if not os.path.exists(parser_file):
         print("[ERROR] Can't find parser file {}!".format(lexer_file))
-        print(os.path.realpath('.'))
+        print(os.path.realpath(''))
         exit(1)
 
     # current directory is where the generated file loaded
     # the script might be in different place.
-    sys.path.append('.')
+    sys.path.append('')
     # print(sys.path)
 
     # add current directory to python global namespace in case of relative imports
