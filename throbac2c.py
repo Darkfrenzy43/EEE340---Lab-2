@@ -56,7 +56,6 @@ class Throbac2CTranslator(ThrobacListener):
 
     def exitScript(self, ctx: ThrobacParser.ScriptContext):
         print("\nexitScript")
-        exit(0)
 
     def exitFuncDef(self, ctx: ThrobacParser.FuncDefContext):
        print("\nexitFuncDef")
@@ -128,6 +127,18 @@ class Throbac2CTranslator(ThrobacListener):
         print("\nExiting Func Call Expr. ")
 
     def exitMulDiv(self, ctx: ThrobacParser.MulDivContext):
+        # gets the values of the left and right node
+        left = self.c_translation(ctx.expr[0])
+        right = self.c_translation(ctx.expr[1])
+
+        # if it is a multiplication
+        if ctx.op.txt == "CONGERO":
+            self.c_translation[ctx] = (left + " * " + right)
+        else:
+            # else it is a division
+            self.c_translation[ctx] = (left + " / " + right)
+
+        # just for testing
         print("\nExiting MulDiv. ")
 
     def exitFuncCall(self, ctx: ThrobacParser.FuncCallContext):
