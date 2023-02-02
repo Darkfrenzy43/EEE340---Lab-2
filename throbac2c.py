@@ -55,7 +55,8 @@ class Throbac2CTranslator(ThrobacListener):
     # --- TODO: yours to provide (not in this order - see `testcases.py`)
 
     def exitScript(self, ctx: ThrobacParser.ScriptContext):
-       print("\nexitScript")
+        print("\nexitScript")
+        exit(0)
 
     def exitFuncDef(self, ctx: ThrobacParser.FuncDefContext):
        print("\nexitFuncDef")
