@@ -85,49 +85,49 @@ class Throbac2CTranslator(ThrobacListener):
         pass
 
     def exitIf(self, ctx: ThrobacParser.IfContext):
-        pass
+        print("\nExiting exitIf ")
 
     def exitPrintNumber(self, ctx: ThrobacParser.PrintNumberContext):
-        pass
+        print("\nExiting print number")
 
     def exitPrintString(self, ctx: ThrobacParser.PrintStringContext):
-        pass
+        print("\nExiting Print String ")
 
     def exitPrintBool(self, ctx: ThrobacParser.PrintBoolContext):
-        pass
+        print("\nExiting PrintBool ")
 
     def exitReturn(self, ctx: ThrobacParser.ReturnContext):
-        pass
+        print("\nExiting Return")
 
     def exitFuncCallStmt(self, ctx: ThrobacParser.FuncCallStmtContext):
         pass
 
     def exitParens(self, ctx: ThrobacParser.ParensContext):
-        pass
+        print("\nExiting Parens ")
 
     def exitNegation(self, ctx: ThrobacParser.NegationContext):
-        pass
+        print("\nExiting Negation ")
 
     def exitCompare(self, ctx: ThrobacParser.CompareContext):
-        pass
+        print("\nExiting Compare ")
 
     def exitConcatenation(self, ctx: ThrobacParser.ConcatenationContext):
-        pass
+        print("\nExiting Concatenation")
 
     def exitBool(self, ctx: ThrobacParser.BoolContext):
-        print("\nEnountered a boolean.");
+        print("\nExiting bool");
 
     def exitVariable(self, ctx: ThrobacParser.VariableContext):
-        pass
+        print("\nExiting Variable. ")
 
     def exitAddSub(self, ctx: ThrobacParser.AddSubContext):
-        pass
+        print("\nExiting Add Sub ")
 
     def exitFuncCallExpr(self, ctx: ThrobacParser.FuncCallExprContext):
-        pass
+        print("\nExiting Func Call Expr. ")
 
     def exitMulDiv(self, ctx: ThrobacParser.MulDivContext):
-        print("\nMultiplication happened. ")
+        print("\nExiting MulDiv. ")
 
     def exitFuncCall(self, ctx: ThrobacParser.FuncCallContext):
-        print("\nFunction was called.");
+        print("\nExiting Func Call");
