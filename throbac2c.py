@@ -55,34 +55,34 @@ class Throbac2CTranslator(ThrobacListener):
     # --- TODO: yours to provide (not in this order - see `testcases.py`)
 
     def exitScript(self, ctx: ThrobacParser.ScriptContext):
-       print("exitScript")
+       print("\nexitScript")
 
     def exitFuncDef(self, ctx: ThrobacParser.FuncDefContext):
-       print("exitFuncDef")
+       print("\nexitFuncDef")
 
     def exitMain(self, ctx: ThrobacParser.MainContext):
-       print("exitMain")
+       print("\nexitMain")
 
     def exitBody(self, ctx: ThrobacParser.BodyContext):
-       print("exitBody")
+       print("\nexitBody")
 
     def exitVarDec(self, ctx: ThrobacParser.VarDecContext):
-       print("exitVarDar")
+       print("\nexitVarDar")
 
     def exitNameDef(self, ctx: ThrobacParser.NameDefContext):
-       print("exitNameDef")
+       print("\nexitNameDef")
 
     def exitVarBlock(self, ctx: ThrobacParser.VarBlockContext):
-       print("exitVarBlock")
+       print("\nexitVarBlock")
 
     def exitBlock(self, ctx: ThrobacParser.BlockContext):
-        print("exitBlock")
+        print("\nexitBlock")
 
     def exitAssignment(self, ctx: ThrobacParser.AssignmentContext):
-        print("exitAssignment")
+        print("\nexitAssignment")
 
     def exitWhile(self, ctx: ThrobacParser.WhileContext):
-       print("exitWhile")
+       print("\nexitWhile")
 
     def exitIf(self, ctx: ThrobacParser.IfContext):
         print("\nExiting exitIf ")
@@ -100,7 +100,7 @@ class Throbac2CTranslator(ThrobacListener):
         print("\nExiting Return")
 
     def exitFuncCallStmt(self, ctx: ThrobacParser.FuncCallStmtContext):
-        pass
+        print("\nexitFuncCallStmt")
 
     def exitParens(self, ctx: ThrobacParser.ParensContext):
         print("\nExiting Parens ")
