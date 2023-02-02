@@ -57,7 +57,12 @@ TEST_CASES = [
     # parentheses
     # compare
     # concatenation
+
     # add and subtract
+    ('2 + 16', '.II. ADDO .I.VI.', 'expr'),
+
+    # --> add more here
+
     # multiply and divide
     # negation
     # function call

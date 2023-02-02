@@ -122,7 +122,15 @@ class Throbac2CTranslator(ThrobacListener):
         print("\nExiting Variable. ")
 
     def exitAddSub(self, ctx: ThrobacParser.AddSubContext):
-        print("\nExiting Add Sub ")
+
+        # Retrieve translations of left and right children
+        left = self.c_translation[ctx.expr(0)];
+        right = self.c_translation[ctx.expr(1)];
+
+        # Greg helped out on this one.
+        self.c_translation[ctx] = (f'{left} + {right}'
+                                   if ctx.op.text == 'ADDO'
+                                   else f'{left} - {right}')
 
     def exitFuncCallExpr(self, ctx: ThrobacParser.FuncCallExprContext):
         print("\nExiting Func Call Expr. ")
