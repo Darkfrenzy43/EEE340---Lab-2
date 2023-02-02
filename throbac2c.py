@@ -55,34 +55,34 @@ class Throbac2CTranslator(ThrobacListener):
     # --- TODO: yours to provide (not in this order - see `testcases.py`)
 
     def exitScript(self, ctx: ThrobacParser.ScriptContext):
-        pass
+       print("exitScript")
 
     def exitFuncDef(self, ctx: ThrobacParser.FuncDefContext):
-        pass
+       print("exitFuncDef")
 
     def exitMain(self, ctx: ThrobacParser.MainContext):
-        pass
+       print("exitMain")
 
     def exitBody(self, ctx: ThrobacParser.BodyContext):
-        pass
+       print("exitBody")
 
     def exitVarDec(self, ctx: ThrobacParser.VarDecContext):
-        pass
+       print("exitVarDar")
 
     def exitNameDef(self, ctx: ThrobacParser.NameDefContext):
-        pass
+       print("exitNameDef")
 
     def exitVarBlock(self, ctx: ThrobacParser.VarBlockContext):
-        pass
+       print("exitVarBlock")
 
     def exitBlock(self, ctx: ThrobacParser.BlockContext):
-        pass
+        print("exitBlock")
 
     def exitAssignment(self, ctx: ThrobacParser.AssignmentContext):
-        pass
+        print("exitAssignment")
 
     def exitWhile(self, ctx: ThrobacParser.WhileContext):
-        pass
+       print("exitWhile")
 
     def exitIf(self, ctx: ThrobacParser.IfContext):
         pass
