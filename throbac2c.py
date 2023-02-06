@@ -82,7 +82,7 @@ class Throbac2CTranslator(ThrobacListener):
         print("\nexitAssignment")
 
     def exitWhile(self, ctx: ThrobacParser.WhileContext):
-       print("\nexitWhile")
+        print("\nexitWhile")
 
     def exitIf(self, ctx: ThrobacParser.IfContext):
         print("\nExiting exitIf ")
@@ -119,7 +119,6 @@ class Throbac2CTranslator(ThrobacListener):
         self.c_translation[ctx] = ("true"
                                    if throbac_bool == "VERUM"
                                    else "false")
-        print("\nExiting bool");
 
     def exitVariable(self, ctx: ThrobacParser.VariableContext):
         print("\nExiting Variable. ")
@@ -127,8 +126,8 @@ class Throbac2CTranslator(ThrobacListener):
     def exitAddSub(self, ctx: ThrobacParser.AddSubContext):
 
         # Retrieve translations of left and right children
-        left = self.c_translation[ctx.expr(0)];
-        right = self.c_translation[ctx.expr(1)];
+        left = self.c_translation[ctx.expr(0)]
+        right = self.c_translation[ctx.expr(1)]
 
         # Greg helped out on this one.
         self.c_translation[ctx] = (f'{left} + {right}'
@@ -140,18 +139,13 @@ class Throbac2CTranslator(ThrobacListener):
 
     def exitMulDiv(self, ctx: ThrobacParser.MulDivContext):
         # gets the values of the left and right node
-        left = self.c_translation(ctx.expr[0])
-        right = self.c_translation(ctx.expr[1])
+        left = self.c_translation[ctx.expr(0)]
+        right = self.c_translation[ctx.expr(1)]
 
-        # if it is a multiplication
-        if ctx.op.txt == "CONGERO":
-            self.c_translation[ctx] = (left + " * " + right)
-        else:
-            # else it is a division
-            self.c_translation[ctx] = (left + " / " + right)
-
-        # just for testing
-        print("\nExiting MulDiv. ")
+        # Creates the C text
+        self.c_translation[ctx] = (f'{left} * {right}'
+                                   if ctx.op.text == 'CONGERO'
+                                   else f'{left} / {right}')
 
     def exitFuncCall(self, ctx: ThrobacParser.FuncCallContext):
         print("\nExiting Func Call");

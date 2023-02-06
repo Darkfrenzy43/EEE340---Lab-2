@@ -66,6 +66,8 @@ TEST_CASES = [
     # --> add more here
 
     # multiply and divide
+    ('8 * 13', '.VIII. CONGERO .I.III.', 'expr'),
+    ('5 / 9', '.V. PARTIO .IX.', 'expr'),
     # negation
     # function call
     # function call expression
