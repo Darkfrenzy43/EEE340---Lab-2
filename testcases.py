@@ -53,6 +53,8 @@ TEST_CASES = [
     (r'"YO\nYOYO\n\n"', '^YO+YOYO++^', 'expr'),  # Note the use of raw string to permit \n
                                                  # alternative would have been '"YO\\nYOYO\\n\\n"'
     # booleans
+    ('true', 'VERUM', 'expr'),
+    ('false', 'FALSUM', 'expr'),
     # variables
     # parentheses
     # compare

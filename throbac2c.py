@@ -115,10 +115,10 @@ class Throbac2CTranslator(ThrobacListener):
         print("\nExiting Concatenation")
 
     def exitBool(self, ctx: ThrobacParser.BoolContext):
-        if self.c_translation(ctx.expr(0))== "VERUM":
-            self.c_translation[ctx] = "true"
-        else:
-            self.c_translation[ctx] = "false"
+        throbac_bool = ctx.getText()
+        self.c_translation[ctx] = ("true"
+                                   if throbac_bool == "VERUM"
+                                   else "false")
         print("\nExiting bool");
 
     def exitVariable(self, ctx: ThrobacParser.VariableContext):
