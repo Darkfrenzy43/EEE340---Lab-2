@@ -100,7 +100,10 @@ class Throbac2CTranslator(ThrobacListener):
         print("\nExiting PrintBool ")
 
     def exitReturn(self, ctx: ThrobacParser.ReturnContext):
-        print("\nExiting Return")
+        expr = (f' {self.c_translation[ctx.expr()]}'
+                if ctx.expr() != None
+                else '')
+        self.c_translation[ctx] = f'return{expr}'
 
     def exitFuncCallStmt(self, ctx: ThrobacParser.FuncCallStmtContext):
         print("\nexitFuncCallStmt")
