@@ -81,6 +81,7 @@ TEST_CASES = [
     ('7', 'NEGANS NEGANS .NIL.NIL.VII.', 'expr'),
 
     # function call
+    ('countdown(10, announce)', 'APUD .I.NIL., announce VOCO countdown', 'funcCall'),
     # function call expression
     # function call statement
     # assignment
