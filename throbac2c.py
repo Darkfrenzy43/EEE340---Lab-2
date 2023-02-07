@@ -131,7 +131,7 @@ class Throbac2CTranslator(ThrobacListener):
         # Might need to check if the type is LOCUTIO
         left = self.c_translation[ctx.expr(0)]
         right = self.c_translation[ctx.expr(1)]
-        self.c_translation[ctx] = f'__throwbac_cat({left}, {right})'
+        self.c_translation[ctx] = f'__throbac_cat({left}, {right})'
         print("\nExiting Concatenation")
 
     def exitBool(self, ctx: ThrobacParser.BoolContext):
