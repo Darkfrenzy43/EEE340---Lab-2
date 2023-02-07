@@ -191,11 +191,27 @@ class Throbac2CTranslator(ThrobacListener):
                                    else f'{left} / {right}')
 
     def exitFuncCall(self, ctx: ThrobacParser.FuncCallContext):
+
+
         #expresionList = [].append(self.c_translation[ctx.expr(n)] for n in ctx.expr())
         #for testing perpous only
         #print(expresionlist)
         #print("\n")
-        identifier = self.c_translation[ctx.ID()]
+
+        # todo - the issue resides in ctx.ID() - there is no ID in c_translation
+        this_id = self.c_translation[ctx.ID()]
+
+        # todo - this does not work either
+        exprList = [self.c_translation[ctx.expr(n)] for n in ctx.expr()];
+
+
+
+
+        print("\n\nthis_id = " + this_id + "\nexprList:");
+        for i in range(len(exprList)):
+            print("\n" + exprList[i]);
+
+        """
         exprStr = ','.join(self.c_translation[ctx.expr(n)] for n in ctx.expr())
         self.c_translation[ctx] = f'{identifier}({exprStr})'
-        print("\nExiting Func Call");
+        """

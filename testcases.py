@@ -55,14 +55,18 @@ TEST_CASES = [
     # booleans
     ('true', 'VERUM', 'expr'),
     ('false', 'FALSUM', 'expr'),
+
     # variables
     ('test', 'test', 'expr'),
+
     # parentheses
     ('(6)', '(.VI.)', 'expr'),
     ('(true)', '(VERUM)', 'expr'),
     ('(false)', '(FALSUM)', 'expr'),
     ('(6 * 8)', '(.VI. CONGERO .VIII.)', 'expr'),
+
     # compare
+
     # concatenation (With null terminated strings?? not implemented)
     ('"HELLO.WORLDISHERE"', '^HELLO.WORLD^ IUNGO ^ISHERE^', 'expr'),
     ('"WHYAREYOUSCREAMING.\\nSTOP."', '^WHYARE^ IUNGO ^YOU^ IUNGO ^SCREAMING.+STOP.^', 'expr'),
@@ -86,7 +90,7 @@ TEST_CASES = [
     ('7', 'NEGANS NEGANS .NIL.NIL.VII.', 'expr'),
 
     # function call
-    #('countdown(10, announce)', 'APUD .I.NIL., announce VOCO countdown', 'funcCall'),
+    ('countdown(10, announce)', 'APUD .I.NIL., announce VOCO countdown', 'funcCall'),
     # function call expression
     # function call statement
     # assignment
