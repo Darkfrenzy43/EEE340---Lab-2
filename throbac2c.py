@@ -154,6 +154,6 @@ class Throbac2CTranslator(ThrobacListener):
         #print(expresionlist)
         #print("\n")
         identifier = self.c_translation[ctx.ID()]
-        expresionStr = ','.join(self.c_translation[ctx.expr(n)] for n in ctx.expr())
-        self.c_translation[ctx] = f'{identifier}({expresionStr})'
+        exprStr = ','.join(self.c_translation[ctx.expr(n)] for n in ctx.expr())
+        self.c_translation[ctx] = f'{identifier}({exprStr})'
         print("\nExiting Func Call");
