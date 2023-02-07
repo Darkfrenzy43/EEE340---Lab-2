@@ -89,6 +89,9 @@ TEST_CASES = [
     # function call expression
     # function call statement
     # assignment
+    ('current = start', 'current start VALORUM', 'statement'),
+    ('x = 32', 'x .III.II. VALORUM', 'statement'),
+    ('string = "HELLO"', 'string ^HELLO^ VALORUM', 'statement'),
     # return
     # print int
     # print string
