@@ -63,6 +63,13 @@ TEST_CASES = [
     ('(false)', '(FALSUM)', 'expr'),
     ('(6 * 8)', '(.VI. CONGERO .VIII.)', 'expr'),
     # compare
+    # TODO add tests with other forms of expr
+    ('20 == 75', '.II.NIL. IDEM .VII.V.', 'expr'),
+    ('31 != 23', '.III.I. NI.IDEM .II.III.', 'expr'),
+    ('49 < 28', '.IV.IX. INFRA .II.VIII.', 'expr'),
+    ('39 <= 1', '.III.IX. INFRA.IDEM .I.', 'expr'),
+    ('5 > 87', '.V. SUPRA .VIII.VII.', 'expr'),
+    ('12 >= 2', '.I.II. SUPRA.IDEM .II.', 'expr'),
     ('9 > 10', '.IX. SUPRA .I.NIL.', 'expr'),
     # concatenation
 

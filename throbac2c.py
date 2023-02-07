@@ -109,6 +109,8 @@ class Throbac2CTranslator(ThrobacListener):
         print("\nExiting Negation ")
 
     def exitCompare(self, ctx: ThrobacParser.CompareContext):
+        # Might need to check if it is a number first
+        # i.e. type NUMERUS
         left =  self.c_translation[ctx.expr(0)]
         right = self.c_translation[ctx.expr(1)]
 
@@ -118,13 +120,12 @@ class Throbac2CTranslator(ThrobacListener):
                                    else (f'{left} != {right}'
                                          if ctx.op.text == 'NI.IDEM'
                                          else (f'{left} < {right}'
-                                               if ctx.op.text == 'INFERA'
+                                               if ctx.op.text == 'INFRA'
                                                else (f'{left} <= {right}'
                                                      if ctx.op.text == 'INFRA.IDEM'
                                                      else (f'{left} > {right}'
                                                            if ctx.op.text == 'SUPRA'
                                                            else f'{left} >= {right}')))))
-        print("\nExiting Compare ")
 
     def exitConcatenation(self, ctx: ThrobacParser.ConcatenationContext):
         print("\nExiting Concatenation")
