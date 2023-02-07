@@ -58,7 +58,11 @@ TEST_CASES = [
     # variables
     # parentheses
     # compare
-    # concatenation
+    # concatenation (With null terminated strings?? not implemented)
+    ('"HELLO.WORLDISHERE"', '^HELLO.WORLD^ IUNGO ^ISHERE^', 'expr'),
+    ('"WHYAREYOUSCREAMING.\\nSTOP."', '^WHYARE^ IUNGO ^YOU^ IUNGO ^SCREAMING.+STOP.^', 'expr'),
+
+
 
     # add and subtract
     ('2 + 16', '.II. ADDO .I.VI.', 'expr'),

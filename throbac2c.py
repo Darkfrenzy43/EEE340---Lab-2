@@ -6,6 +6,10 @@ tree, which is the `ScriptContext` node.
 
 Author: OCdt Aaron Brown and OCdt Liethan Velasco
 
+Notes:
+    - check in with prof about zero-terminated strings. The code
+    that was given to us does not utilize them at all. 
+
 Version: February 9 2023.
 """
 
@@ -51,6 +55,8 @@ class Throbac2CTranslator(ThrobacListener):
         throbac = ctx.getText()
         c_with_pluses = f'"{throbac.strip("^")}"'
         self.c_translation[ctx] = c_with_pluses.replace('+', r'\n')  # note the raw string
+
+        # Don't we want to put a zero terminator here? ^^
 
     # --- TODO: yours to provide (not in this order - see `testcases.py`)
 
@@ -105,6 +111,7 @@ class Throbac2CTranslator(ThrobacListener):
     def exitParens(self, ctx: ThrobacParser.ParensContext):
         print("\nExiting Parens ")
 
+
     def exitNegation(self, ctx: ThrobacParser.NegationContext):
 
         # Getting expr translation
@@ -128,11 +135,22 @@ class Throbac2CTranslator(ThrobacListener):
                                        if expr_text[0] == "-"
                                        else "-" + expr_text);
 
+
     def exitCompare(self, ctx: ThrobacParser.CompareContext):
         print("\nExiting Compare ")
 
     def exitConcatenation(self, ctx: ThrobacParser.ConcatenationContext):
-        print("\nExiting Concatenation")
+
+        # Extracting child expressions. They're not zero-terminated though??
+        left_expr = self.c_translation[ctx.expr(0)];
+        right_expr = self.c_translation[ctx.expr(1)];
+
+        # Concatenating and setting translation.
+        # Don't forget to account for the inner quotations and ZERO-TERMINATORS???
+        self.c_translation[ctx] = left_expr[:-1] + right_expr[1:-1] + '"';
+
+
+
 
     def exitBool(self, ctx: ThrobacParser.BoolContext):
         throbac_bool = ctx.getText()
@@ -140,8 +158,10 @@ class Throbac2CTranslator(ThrobacListener):
                                    if throbac_bool == "VERUM"
                                    else "false")
 
+
     def exitVariable(self, ctx: ThrobacParser.VariableContext):
         print("\nExiting Variable. ")
+
 
     def exitAddSub(self, ctx: ThrobacParser.AddSubContext):
 
@@ -154,8 +174,10 @@ class Throbac2CTranslator(ThrobacListener):
                                    if ctx.op.text == 'ADDO'
                                    else f'{left} - {right}')
 
+
     def exitFuncCallExpr(self, ctx: ThrobacParser.FuncCallExprContext):
         print("\nExiting Func Call Expr. ")
+
 
     def exitMulDiv(self, ctx: ThrobacParser.MulDivContext):
         # gets the values of the left and right node
