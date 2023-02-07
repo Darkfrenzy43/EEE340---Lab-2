@@ -62,13 +62,20 @@ TEST_CASES = [
 
     # add and subtract
     ('2 + 16', '.II. ADDO .I.VI.', 'expr'),
-
     # --> add more here
 
     # multiply and divide
     ('8 * 13', '.VIII. CONGERO .I.III.', 'expr'),
     ('5 / 9', '.V. PARTIO .IX.', 'expr'),
+
     # negation
+    ('true', 'NI FALSUM', 'expr'),
+    ('false', 'NI NI NI VERUM', 'expr'),
+    ('true', 'NI NI NI NI NI FALSUM', 'expr'),
+
+    ('-7', 'NEGANS .NIL.NIL.VII.', 'expr'),
+    ('7', 'NEGANS NEGANS .NIL.NIL.VII.', 'expr'),
+
     # function call
     # function call expression
     # function call statement

@@ -106,7 +106,27 @@ class Throbac2CTranslator(ThrobacListener):
         print("\nExiting Parens ")
 
     def exitNegation(self, ctx: ThrobacParser.NegationContext):
-        print("\nExiting Negation ")
+
+        # Getting expr translation
+        expr_text = self.c_translation[ctx.expr()];
+        this_op = ctx.op.text;
+
+        # Do following if op is 'NI':
+        if this_op == 'NI':
+
+            # Setting translation as needed
+            self.c_translation[ctx] = ("true"
+                                       if expr_text == "false"
+                                       else "false");
+
+        # Otherwise, do following if op is 'NEGANS':
+        elif this_op == 'NEGANS':
+
+            # If translation already negative, return just number portion.
+            # If was positive, return number with negative sign.
+            self.c_translation[ctx] = (expr_text[1:]
+                                       if expr_text[0] == "-"
+                                       else "-" + expr_text);
 
     def exitCompare(self, ctx: ThrobacParser.CompareContext):
         print("\nExiting Compare ")
