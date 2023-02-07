@@ -93,6 +93,10 @@ TEST_CASES = [
     ('x = 32', 'x .III.II. VALORUM', 'statement'),
     ('string = "HELLO"', 'string ^HELLO^ VALORUM', 'statement'),
     # return
+    ('return', 'REDEO', 'statement'),
+    ('return count', 'count REDEO', 'statement'),
+    ('return 84', '.VIII.IV. REDEO', 'statement'),
+    ('return 43 * 16', '.IV.III. CONGERO .I.VI. REDEO', 'statement')
     # print int
     # print string
     # print bool
