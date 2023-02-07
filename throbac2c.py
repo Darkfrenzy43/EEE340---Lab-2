@@ -85,7 +85,10 @@ class Throbac2CTranslator(ThrobacListener):
         print("\nexitBlock")
 
     def exitAssignment(self, ctx: ThrobacParser.AssignmentContext):
-        print("\nexitAssignment")
+        # TODO IDK if this is a legit way to get the ID but it seems to work
+        ID = ctx.ID()
+        expr = self.c_translation[ctx.expr()]
+        self.c_translation[ctx] = f'{ID} = {expr}'
 
     def exitWhile(self, ctx: ThrobacParser.WhileContext):
         print("\nexitWhile")
@@ -137,9 +140,26 @@ class Throbac2CTranslator(ThrobacListener):
 
 
     def exitCompare(self, ctx: ThrobacParser.CompareContext):
-        print("\nExiting Compare ")
+        # Might need to check if it is a number first
+        # i.e. type NUMERUS
+        left = self.c_translation[ctx.expr(0)]
+        right = self.c_translation[ctx.expr(1)]
+
+        # IDK if is this is really a cleaner way to do it ¯\_(ツ)_/¯
+        self.c_translation[ctx] = (f'{left} == {right}'
+                                   if ctx.op.text == 'IDEM'
+                                   else (f'{left} != {right}'
+                                         if ctx.op.text == 'NI.IDEM'
+                                         else (f'{left} < {right}'
+                                               if ctx.op.text == 'INFRA'
+                                               else (f'{left} <= {right}'
+                                                     if ctx.op.text == 'INFRA.IDEM'
+                                                     else (f'{left} > {right}'
+                                                           if ctx.op.text == 'SUPRA'
+                                                           else f'{left} >= {right}')))))
 
     def exitConcatenation(self, ctx: ThrobacParser.ConcatenationContext):
+
 
         # Extracting child expressions. They're not zero-terminated though??
         left_expr = self.c_translation[ctx.expr(0)];
@@ -149,6 +169,10 @@ class Throbac2CTranslator(ThrobacListener):
         # Don't forget to account for the inner quotations and ZERO-TERMINATORS???
         self.c_translation[ctx] = left_expr[:-1] + right_expr[1:-1] + '"';
 
+        # Might need to check if the type is LOCUTIO
+        left = self.c_translation[ctx.expr(0)]
+        right = self.c_translation[ctx.expr(1)]
+        self.c_translation[ctx] = f'__throbac_cat({left}, {right})'
 
 
 

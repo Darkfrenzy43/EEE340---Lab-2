@@ -52,6 +52,7 @@ TEST_CASES = [
     ('"HELLO.WORLD"', '^HELLO.WORLD^', 'expr'),
     ('""', '^^', 'expr'),
     (r'"YO\nYOYO\n\n"', '^YO+YOYO++^', 'expr'),  # Note the use of raw string to permit \n
+    (r'"\n"', '^+^', 'expr'),
                                                  # alternative would have been '"YO\\nYOYO\\n\\n"'
     # booleans
     ('true', 'VERUM', 'expr'),
@@ -69,11 +70,26 @@ TEST_CASES = [
 
     # compare
 
+
     # concatenation (With null terminated strings?? not implemented)
     ('"HELLO.WORLDISHERE"', '^HELLO.WORLD^ IUNGO ^ISHERE^', 'expr'),
     ('"WHYAREYOUSCREAMING.\\nSTOP."', '^WHYARE^ IUNGO ^YOU^ IUNGO ^SCREAMING.+STOP.^', 'expr'),
 
 
+
+    # Added from Brown
+    ('20 == 75', '.II.NIL. IDEM .VII.V.', 'expr'),
+    ('31 != 23', '.III.I. NI.IDEM .II.III.', 'expr'),
+    ('49 < 28', '.IV.IX. INFRA .II.VIII.', 'expr'),
+    ('39 <= 1', '.III.IX. INFRA.IDEM .I.', 'expr'),
+    ('5 > 87', '.V. SUPRA .VIII.VII.', 'expr'),
+    ('12 >= 2', '.I.II. SUPRA.IDEM .II.', 'expr'),
+    ('9 > 10', '.IX. SUPRA .I.NIL.', 'expr'),
+
+
+    # concatenation
+    (r'__throbac_cat(message, "\n")', 'message IUNGO ^+^ ', 'expr'),
+    ('__throbac_cat("HELLO", "WORLD")', '^HELLO^ IUNGO ^WORLD^', 'expr'),
 
     # add and subtract
     ('somevar + b', 'somevar ADDO b', 'expr'),
@@ -98,6 +114,9 @@ TEST_CASES = [
     # function call expression
     # function call statement
     # assignment
+    ('current = start', 'current start VALORUM', 'statement'),
+    ('x = 32', 'x .III.II. VALORUM', 'statement'),
+    ('string = "HELLO"', 'string ^HELLO^ VALORUM', 'statement'),
     # return
     # print int
     # print string
