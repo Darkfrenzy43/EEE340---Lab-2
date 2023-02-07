@@ -63,6 +63,7 @@ TEST_CASES = [
     ('(false)', '(FALSUM)', 'expr'),
     ('(6 * 8)', '(.VI. CONGERO .VIII.)', 'expr'),
     # compare
+    ('9 > 10', '.IX. SUPRA .I.NIL.', 'expr'),
     # concatenation
 
     # add and subtract

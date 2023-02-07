@@ -109,6 +109,21 @@ class Throbac2CTranslator(ThrobacListener):
         print("\nExiting Negation ")
 
     def exitCompare(self, ctx: ThrobacParser.CompareContext):
+        left =  self.c_translation[ctx.expr(0)]
+        right = self.c_translation[ctx.expr(1)]
+
+        # IDK if is this is really a cleaner way to do it ¯\_(ツ)_/¯
+        self.c_translation[ctx] = (f'{left} == {right}'
+                                   if ctx.op.text == 'IDEM'
+                                   else (f'{left} != {right}'
+                                         if ctx.op.text == 'NI.IDEM'
+                                         else (f'{left} < {right}'
+                                               if ctx.op.text == 'INFERA'
+                                               else (f'{left} <= {right}'
+                                                     if ctx.op.text == 'INFRA.IDEM'
+                                                     else (f'{left} > {right}'
+                                                           if ctx.op.text == 'SUPRA'
+                                                           else f'{left} >= {right}')))))
         print("\nExiting Compare ")
 
     def exitConcatenation(self, ctx: ThrobacParser.ConcatenationContext):
