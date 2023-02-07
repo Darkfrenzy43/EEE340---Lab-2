@@ -51,6 +51,7 @@ TEST_CASES = [
     ('"HELLO.WORLD"', '^HELLO.WORLD^', 'expr'),
     ('""', '^^', 'expr'),
     (r'"YO\nYOYO\n\n"', '^YO+YOYO++^', 'expr'),  # Note the use of raw string to permit \n
+    (r'"\n"', '^+^', 'expr'),
                                                  # alternative would have been '"YO\\nYOYO\\n\\n"'
     # booleans
     ('true', 'VERUM', 'expr'),
@@ -72,6 +73,8 @@ TEST_CASES = [
     ('12 >= 2', '.I.II. SUPRA.IDEM .II.', 'expr'),
     ('9 > 10', '.IX. SUPRA .I.NIL.', 'expr'),
     # concatenation
+    (r'__throwbac_cat(message, "\n")', 'message IUNGO ^+^ ', 'expr'),
+    ('__throwbac_cat("Hello", " World', '^Hello^ IUNGO ^ World^', 'expr'),
 
     # add and subtract
     ('2 + 16', '.II. ADDO .I.VI.', 'expr'),

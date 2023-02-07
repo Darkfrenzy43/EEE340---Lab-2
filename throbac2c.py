@@ -111,7 +111,7 @@ class Throbac2CTranslator(ThrobacListener):
     def exitCompare(self, ctx: ThrobacParser.CompareContext):
         # Might need to check if it is a number first
         # i.e. type NUMERUS
-        left =  self.c_translation[ctx.expr(0)]
+        left = self.c_translation[ctx.expr(0)]
         right = self.c_translation[ctx.expr(1)]
 
         # IDK if is this is really a cleaner way to do it ¯\_(ツ)_/¯
@@ -128,6 +128,10 @@ class Throbac2CTranslator(ThrobacListener):
                                                            else f'{left} >= {right}')))))
 
     def exitConcatenation(self, ctx: ThrobacParser.ConcatenationContext):
+        # Might need to check if the type is LOCUTIO
+        left = self.c_translation[ctx.expr(0)]
+        right = self.c_translation[ctx.expr(1)]
+        self.c_translation[ctx] = f'__throwbac_cat({left}, {right})'
         print("\nExiting Concatenation")
 
     def exitBool(self, ctx: ThrobacParser.BoolContext):
