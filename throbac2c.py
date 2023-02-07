@@ -160,7 +160,6 @@ class Throbac2CTranslator(ThrobacListener):
 
     def exitConcatenation(self, ctx: ThrobacParser.ConcatenationContext):
 
-
         # Extracting child expressions. They're not zero-terminated though??
         left_expr = self.c_translation[ctx.expr(0)];
         right_expr = self.c_translation[ctx.expr(1)];
@@ -168,6 +167,8 @@ class Throbac2CTranslator(ThrobacListener):
         # Concatenating and setting translation.
         # Don't forget to account for the inner quotations and ZERO-TERMINATORS???
         self.c_translation[ctx] = left_expr[:-1] + right_expr[1:-1] + '"';
+
+        # TODO - Solve the interference here 
 
         # Might need to check if the type is LOCUTIO
         left = self.c_translation[ctx.expr(0)]
