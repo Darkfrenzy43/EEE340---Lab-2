@@ -121,7 +121,7 @@ class Throbac2CTranslator(ThrobacListener):
                                    else "false")
 
     def exitVariable(self, ctx: ThrobacParser.VariableContext):
-        print("\nExiting Variable. ")
+        self.c_translation[ctx] = ctx.getText()
 
     def exitAddSub(self, ctx: ThrobacParser.AddSubContext):
 

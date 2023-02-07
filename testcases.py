@@ -56,6 +56,7 @@ TEST_CASES = [
     ('true', 'VERUM', 'expr'),
     ('false', 'FALSUM', 'expr'),
     # variables
+    ('test', 'test', 'expr'),
     # parentheses
     ('(6)', '(.VI.)', 'expr'),
     ('(true)', '(VERUM)', 'expr'),
