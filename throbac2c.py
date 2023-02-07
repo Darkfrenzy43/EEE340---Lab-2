@@ -192,26 +192,12 @@ class Throbac2CTranslator(ThrobacListener):
 
     def exitFuncCall(self, ctx: ThrobacParser.FuncCallContext):
 
+        # ID IS A LEXICAL TOKEN! DOESN'T HAVE A C_TRANSLATION??
+        this_id = ctx.ID().getText();
 
-        #expresionList = [].append(self.c_translation[ctx.expr(n)] for n in ctx.expr())
-        #for testing perpous only
-        #print(expresionlist)
-        #print("\n")
+        # Getting the expressions in a string
+        exprList = [self.c_translation[this_expr] for this_expr in ctx.expr()];
+        exprStr = ', '.join(exprList);
 
-        # todo - the issue resides in ctx.ID() - there is no ID in c_translation
-        this_id = self.c_translation[ctx.ID()]
-
-        # todo - this does not work either
-        exprList = [self.c_translation[ctx.expr(n)] for n in ctx.expr()];
-
-
-
-
-        print("\n\nthis_id = " + this_id + "\nexprList:");
-        for i in range(len(exprList)):
-            print("\n" + exprList[i]);
-
-        """
-        exprStr = ','.join(self.c_translation[ctx.expr(n)] for n in ctx.expr())
-        self.c_translation[ctx] = f'{identifier}({exprStr})'
-        """
+        # Setting translation
+        self.c_translation[ctx] = f'{this_id}({exprStr})';

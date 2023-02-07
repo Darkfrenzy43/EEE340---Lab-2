@@ -43,6 +43,7 @@ implementation of your `Throbac2CTranslator`.
  """
 
 TEST_CASES = [
+
     # numbers
     ('0', '.NIL.', 'expr'),
     ('7', '.NIL.NIL.VII.', 'expr'),  # trim leading zeroes
@@ -58,6 +59,7 @@ TEST_CASES = [
 
     # variables
     ('test', 'test', 'expr'),
+    ('somevar', 'somevar', 'expr'),
 
     # parentheses
     ('(6)', '(.VI.)', 'expr'),
@@ -74,6 +76,7 @@ TEST_CASES = [
 
 
     # add and subtract
+    ('somevar + b', 'somevar ADDO b', 'expr'),
     ('2 + 16', '.II. ADDO .I.VI.', 'expr'),
     # --> add more here
 
@@ -91,6 +94,7 @@ TEST_CASES = [
 
     # function call
     ('countdown(10, announce)', 'APUD .I.NIL., announce VOCO countdown', 'funcCall'),
+
     # function call expression
     # function call statement
     # assignment
@@ -108,6 +112,8 @@ TEST_CASES = [
     # main
     # funcdef
     # script
+    
+
 ]
 
 
