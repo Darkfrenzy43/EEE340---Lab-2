@@ -71,10 +71,11 @@ TEST_CASES = [
     # compare
 
 
-    # concatenation (With null terminated strings?? not implemented)
-    ('"HELLO.WORLDISHERE"', '^HELLO.WORLD^ IUNGO ^ISHERE^', 'expr'),
-    ('"WHYAREYOUSCREAMING.\\nSTOP."', '^WHYARE^ IUNGO ^YOU^ IUNGO ^SCREAMING.+STOP.^', 'expr'),
-
+    # concatenation
+    ('__throbac_cat("HELLO.WORLD", "ISHERE")', '^HELLO.WORLD^ IUNGO ^ISHERE^', 'expr'),
+    ('__throbac_cat(__throbac_cat("WHYARE", "YOU"), "SCREAMING.\\nSTOP.")', '^WHYARE^ IUNGO ^YOU^ IUNGO ^SCREAMING.+STOP.^', 'expr'),
+    (r'__throbac_cat(message, "\n")', 'message IUNGO ^+^ ', 'expr'),
+    ('__throbac_cat("HELLO", "WORLD")', '^HELLO^ IUNGO ^WORLD^', 'expr'),
 
 
     # Added from Brown
@@ -87,9 +88,7 @@ TEST_CASES = [
     ('9 > 10', '.IX. SUPRA .I.NIL.', 'expr'),
 
 
-    # concatenation
-    (r'__throbac_cat(message, "\n")', 'message IUNGO ^+^ ', 'expr'),
-    ('__throbac_cat("HELLO", "WORLD")', '^HELLO^ IUNGO ^WORLD^', 'expr'),
+
 
     # add and subtract
     ('somevar + b', 'somevar ADDO b', 'expr'),
