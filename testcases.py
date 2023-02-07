@@ -57,6 +57,10 @@ TEST_CASES = [
     ('false', 'FALSUM', 'expr'),
     # variables
     # parentheses
+    ('(6)', '(.VI.)', 'expr'),
+    ('(true)', '(VERUM)', 'expr'),
+    ('(false)', '(FALSUM)', 'expr'),
+    ('(6 * 8)', '(.VI. CONGERO .VIII.)', 'expr'),
     # compare
     # concatenation
 
