@@ -109,7 +109,7 @@ class Throbac2CTranslator(ThrobacListener):
         print("\nexitFuncCallStmt")
 
     def exitParens(self, ctx: ThrobacParser.ParensContext):
-        print("\nExiting Parens ")
+        self.c_translation[ctx] = f'({self.c_translation[ctx.expr()]})'
 
 
     def exitNegation(self, ctx: ThrobacParser.NegationContext):
@@ -160,7 +160,7 @@ class Throbac2CTranslator(ThrobacListener):
 
 
     def exitVariable(self, ctx: ThrobacParser.VariableContext):
-        print("\nExiting Variable. ")
+        self.c_translation[ctx] = ctx.getText()
 
 
     def exitAddSub(self, ctx: ThrobacParser.AddSubContext):

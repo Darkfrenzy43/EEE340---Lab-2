@@ -56,7 +56,12 @@ TEST_CASES = [
     ('true', 'VERUM', 'expr'),
     ('false', 'FALSUM', 'expr'),
     # variables
+    ('test', 'test', 'expr'),
     # parentheses
+    ('(6)', '(.VI.)', 'expr'),
+    ('(true)', '(VERUM)', 'expr'),
+    ('(false)', '(FALSUM)', 'expr'),
+    ('(6 * 8)', '(.VI. CONGERO .VIII.)', 'expr'),
     # compare
     # concatenation (With null terminated strings?? not implemented)
     ('"HELLO.WORLDISHERE"', '^HELLO.WORLD^ IUNGO ^ISHERE^', 'expr'),
