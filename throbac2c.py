@@ -135,6 +135,7 @@ class Throbac2CTranslator(ThrobacListener):
                                    else f'{left} - {right}')
 
     def exitFuncCallExpr(self, ctx: ThrobacParser.FuncCallExprContext):
+
         print("\nExiting Func Call Expr. ")
 
     def exitMulDiv(self, ctx: ThrobacParser.MulDivContext):
@@ -148,4 +149,11 @@ class Throbac2CTranslator(ThrobacListener):
                                    else f'{left} / {right}')
 
     def exitFuncCall(self, ctx: ThrobacParser.FuncCallContext):
+        #expresionList = [].append(self.c_translation[ctx.expr(n)] for n in ctx.expr())
+        # for testing perpous only
+        #print(expresionlist)
+        #print("\n")
+        identifier = ctx.ID()
+        expresionStr = ','.join(self.c_translation[ctx.expr(n)] for n in ctx.expr())
+        self.c_translation[ctx] = f'{identifier}({expresionStr})'
         print("\nExiting Func Call");

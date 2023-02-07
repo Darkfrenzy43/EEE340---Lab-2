@@ -70,6 +70,7 @@ TEST_CASES = [
     ('5 / 9', '.V. PARTIO .IX.', 'expr'),
     # negation
     # function call
+    ('countdown(10, announce)', 'APUD .I.NIL., announce VOCO countdown', 'funcCall'),
     # function call expression
     # function call statement
     # assignment
