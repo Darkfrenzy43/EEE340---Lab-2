@@ -192,10 +192,10 @@ class Throbac2CTranslator(ThrobacListener):
 
     def exitFuncCall(self, ctx: ThrobacParser.FuncCallContext):
         #expresionList = [].append(self.c_translation[ctx.expr(n)] for n in ctx.expr())
-        # for testing perpous only
+        #for testing perpous only
         #print(expresionlist)
         #print("\n")
-        identifier = ctx.ID()
-        expresionStr = ','.join(self.c_translation[ctx.expr(n)] for n in ctx.expr())
-        self.c_translation[ctx] = f'{identifier}({expresionStr})'
+        identifier = self.c_translation[ctx.ID()]
+        exprStr = ','.join(self.c_translation[ctx.expr(n)] for n in ctx.expr())
+        self.c_translation[ctx] = f'{identifier}({exprStr})'
         print("\nExiting Func Call");
