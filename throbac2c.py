@@ -126,7 +126,8 @@ class Throbac2CTranslator(ThrobacListener):
         self.c_translation[ctx] = f'{str_id} {this_id}';
 
     def exitVarBlock(self, ctx: ThrobacParser.VarBlockContext):
-       print("\nexitVarBlock")
+        decList = [self.c_translation[this_dec] for this_dec in ctx.varDec()]
+        self.c_translation[ctx] = '\n'.join(decList)
 
     def exitBlock(self, ctx: ThrobacParser.BlockContext):
         statementList = [self.c_translation[this_statement] for this_statement in ctx.statement()]
