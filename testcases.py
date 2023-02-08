@@ -119,10 +119,10 @@ TEST_CASES = [
     ('return 20 == 75;', '.II.NIL. IDEM .VII.V. REDEO', 'statement'),
     ('return "SOMESTRING";', '^SOMESTRING^ REDEO', 'statement'),
     ('return;', ' REDEO', 'statement'),
-    ('return', 'REDEO', 'statement'),
-    ('return count', 'count REDEO', 'statement'),
-    ('return 84', '.VIII.IV. REDEO', 'statement'),
-    ('return 43 * 16', '.IV.III. CONGERO .I.VI. REDEO', 'statement'),
+    ('return;', 'REDEO', 'statement'),
+    ('return count;', 'count REDEO', 'statement'),
+    ('return 84;', '.VIII.IV. REDEO', 'statement'),
+    ('return 43 * 16;', '.IV.III. CONGERO .I.VI. REDEO', 'statement'),
 
     # print int
     # print string
