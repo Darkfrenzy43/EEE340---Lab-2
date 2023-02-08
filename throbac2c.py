@@ -6,6 +6,10 @@ tree, which is the `ScriptContext` node.
 
 Author: OCdt Aaron Brown and OCdt Liethan Velasco
 
+Notes:
+    - check in with prof about zero-terminated strings. The code
+    that was given to us does not utilize them at all. 
+
 Version: February 9 2023.
 """
 
@@ -52,6 +56,8 @@ class Throbac2CTranslator(ThrobacListener):
         c_with_pluses = f'"{throbac.strip("^")}"'
         self.c_translation[ctx] = c_with_pluses.replace('+', r'\n')  # note the raw string
 
+        # TODO Don't we want to put a zero terminator here? ^^
+
     # --- TODO: yours to provide (not in this order - see `testcases.py`)
 
     def exitScript(self, ctx: ThrobacParser.ScriptContext):
@@ -96,13 +102,25 @@ class Throbac2CTranslator(ThrobacListener):
         print("\nExiting Print String ")
 
     def exitPrintBool(self, ctx: ThrobacParser.PrintBoolContext):
-        print("\nExiting PrintBool ")
+
+        # Retrieving expr value
+        this_expr = self.c_translation[ctx.expr()];
+
+        StrResult = "true" if this_expr == "true" else "false";
+
+        # Setting translation
+        self.c_translation[ctx] = f'printf("%s", "{StrResult}");';
+
 
     def exitReturn(self, ctx: ThrobacParser.ReturnContext):
-        expr = (f' {self.c_translation[ctx.expr()]}'
-                if ctx.expr() != None
-                else '')
-        self.c_translation[ctx] = f'return{expr}'
+
+        # Account for no expr added in return statement
+        if ctx.expr() is None:
+            self.c_translation[ctx] = f"return;"
+        else:
+            this_expr = self.c_translation[ctx.expr()];
+            self.c_translation[ctx] = f"return {this_expr};"
+
 
     def exitFuncCallStmt(self, ctx: ThrobacParser.FuncCallStmtContext):
         print("\nexitFuncCallStmt")
@@ -111,7 +129,28 @@ class Throbac2CTranslator(ThrobacListener):
         self.c_translation[ctx] = f'({self.c_translation[ctx.expr()]})'
 
     def exitNegation(self, ctx: ThrobacParser.NegationContext):
-        print("\nExiting Negation ")
+
+        # Getting expr translation
+        expr_text = self.c_translation[ctx.expr()];
+        this_op = ctx.op.text;
+
+        # Do following if op is 'NI':
+        if this_op == 'NI':
+
+            # Setting translation as needed
+            self.c_translation[ctx] = ("true"
+                                       if expr_text == "false"
+                                       else "false");
+
+        # Otherwise, do following if op is 'NEGANS':
+        elif this_op == 'NEGANS':
+
+            # If translation already negative, return just number portion.
+            # If was positive, return number with negative sign.
+            self.c_translation[ctx] = (expr_text[1:]
+                                       if expr_text[0] == "-"
+                                       else "-" + expr_text);
+
 
     def exitCompare(self, ctx: ThrobacParser.CompareContext):
         # Might need to check if it is a number first
@@ -133,7 +172,20 @@ class Throbac2CTranslator(ThrobacListener):
                                                            else f'{left} >= {right}')))))
 
     def exitConcatenation(self, ctx: ThrobacParser.ConcatenationContext):
-        # Might need to check if the type is LOCUTIO
+
+        """
+
+        # Extracting child expressions. They're not zero-terminated though??
+        left_expr = self.c_translation[ctx.expr(0)];
+        right_expr = self.c_translation[ctx.expr(1)];
+
+        # Concatenating and setting translation.
+        # Don't forget to account for the inner quotations and ZERO-TERMINATORS???
+        self.c_translation[ctx] = left_expr[:-1] + right_expr[1:-1] + '"';
+
+        """
+
+
         left = self.c_translation[ctx.expr(0)]
         right = self.c_translation[ctx.expr(1)]
         self.c_translation[ctx] = f'__throbac_cat({left}, {right})'
@@ -172,4 +224,13 @@ class Throbac2CTranslator(ThrobacListener):
                                    else f'{left} / {right}')
 
     def exitFuncCall(self, ctx: ThrobacParser.FuncCallContext):
-        print("\nExiting Func Call");
+
+        # ID IS A LEXICAL TOKEN! DOESN'T HAVE A C_TRANSLATION??
+        this_id = ctx.ID().getText();
+
+        # Getting the expressions in a string
+        exprList = [self.c_translation[this_expr] for this_expr in ctx.expr()];
+        exprStr = ', '.join(exprList);
+
+        # Setting translation
+        self.c_translation[ctx] = f'{this_id}({exprStr})';

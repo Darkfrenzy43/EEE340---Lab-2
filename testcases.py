@@ -43,6 +43,7 @@ implementation of your `Throbac2CTranslator`.
  """
 
 TEST_CASES = [
+
     # numbers
     ('0', '.NIL.', 'expr'),
     ('7', '.NIL.NIL.VII.', 'expr'),  # trim leading zeroes
@@ -56,15 +57,24 @@ TEST_CASES = [
     # booleans
     ('true', 'VERUM', 'expr'),
     ('false', 'FALSUM', 'expr'),
+
     # variables
     ('test', 'test', 'expr'),
+    ('somevar', 'somevar', 'expr'),
+
     # parentheses
     ('(6)', '(.VI.)', 'expr'),
     ('(true)', '(VERUM)', 'expr'),
     ('(false)', '(FALSUM)', 'expr'),
     ('(6 * 8)', '(.VI. CONGERO .VIII.)', 'expr'),
+
+    # concatenation
+    ('__throbac_cat("HELLO.WORLD", "ISHERE")', '^HELLO.WORLD^ IUNGO ^ISHERE^', 'expr'),
+    ('__throbac_cat(__throbac_cat("WHYARE", "YOU"), "SCREAMING.\\nSTOP.")', '^WHYARE^ IUNGO ^YOU^ IUNGO ^SCREAMING.+STOP.^', 'expr'),
+    (r'__throbac_cat(message, "\n")', 'message IUNGO ^+^ ', 'expr'),
+    ('__throbac_cat("HELLO", "WORLD")', '^HELLO^ IUNGO ^WORLD^', 'expr'),
+
     # compare
-    # TODO add tests with other forms of expr
     ('20 == 75', '.II.NIL. IDEM .VII.V.', 'expr'),
     ('31 != 23', '.III.I. NI.IDEM .II.III.', 'expr'),
     ('49 < 28', '.IV.IX. INFRA .II.VIII.', 'expr'),
@@ -72,39 +82,68 @@ TEST_CASES = [
     ('5 > 87', '.V. SUPRA .VIII.VII.', 'expr'),
     ('12 >= 2', '.I.II. SUPRA.IDEM .II.', 'expr'),
     ('9 > 10', '.IX. SUPRA .I.NIL.', 'expr'),
-    # concatenation
-    (r'__throbac_cat(message, "\n")', 'message IUNGO ^+^ ', 'expr'),
-    ('__throbac_cat("HELLO", "WORLD")', '^HELLO^ IUNGO ^WORLD^', 'expr'),
 
     # add and subtract
+    ('somevar + b', 'somevar ADDO b', 'expr'),
     ('2 + 16', '.II. ADDO .I.VI.', 'expr'),
-
     # --> add more here
 
     # multiply and divide
     ('8 * 13', '.VIII. CONGERO .I.III.', 'expr'),
     ('5 / 9', '.V. PARTIO .IX.', 'expr'),
+
     # negation
+    ('true', 'NI FALSUM', 'expr'),
+    ('false', 'NI NI NI VERUM', 'expr'),
+    ('true', 'NI NI NI NI NI FALSUM', 'expr'),
+    ('-7', 'NEGANS .NIL.NIL.VII.', 'expr'),
+    ('7', 'NEGANS NEGANS .NIL.NIL.VII.', 'expr'),
+
     # function call
+    ('countdown(10, announce)', 'APUD .I.NIL., announce VOCO countdown', 'funcCall'),
+
     # function call expression
+
     # function call statement
+
     # assignment
     ('current = start;', 'current start VALORUM', 'statement'),
     ('x = 32;', 'x .III.II. VALORUM', 'statement'),
     ('string = "HELLO";', 'string ^HELLO^ VALORUM', 'statement'),
+    ('current = start', 'current start VALORUM', 'statement'),
+    ('x = 32', 'x .III.II. VALORUM', 'statement'),
+    ('string = "HELLO"', 'string ^HELLO^ VALORUM', 'statement'),
+
     # return
+    ('return count;', 'count REDEO', 'statement'),
+    ('return 20 == 75;', '.II.NIL. IDEM .VII.V. REDEO', 'statement'),
+    ('return "SOMESTRING";', '^SOMESTRING^ REDEO', 'statement'),
+    ('return;', ' REDEO', 'statement'),
     ('return', 'REDEO', 'statement'),
     ('return count', 'count REDEO', 'statement'),
     ('return 84', '.VIII.IV. REDEO', 'statement'),
     ('return 43 * 16', '.IV.III. CONGERO .I.VI. REDEO', 'statement'),
+
     # print int
     # print string
     # print bool
     # block ME
     ('printf("HELLOWORLD"); return 2;', '^HELLO^ LOCUTIO.IMPRIMO .II. REDEO', 'block'),
-    # while Me
-    # if Me
-    # nameDef Me
+
+    # while
+    # if
+    # nameDef
+    # print int
+    # print string
+    # print bool
+    ('printf("%s", "true");', 'VERUM VERITAS.IMPRIMO', 'statement'),
+    ('printf("%s", "false");', 'NI VERUM VERITAS.IMPRIMO', 'statement'),
+    ('printf("%s", "false");', 'NI NI FALSUM VERITAS.IMPRIMO', 'statement'),
+
+    # block
+    # while
+    # if
+    # nameDef
     # varDec
     # varBlock
     # body
