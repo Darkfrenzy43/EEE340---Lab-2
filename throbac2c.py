@@ -123,7 +123,6 @@ class Throbac2CTranslator(ThrobacListener):
             self.c_translation[ctx] = f"return {this_expr};"
 
 
-
     def exitFuncCallStmt(self, ctx: ThrobacParser.FuncCallStmtContext):
         print("\nexitFuncCallStmt")
 
