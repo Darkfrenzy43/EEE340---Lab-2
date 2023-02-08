@@ -86,15 +86,16 @@ class Throbac2CTranslator(ThrobacListener):
 
     def exitAssignment(self, ctx: ThrobacParser.AssignmentContext):
         # TODO IDK if this is a legit way to get the ID but it seems to work
-        ID = ctx.ID()
+        ID = ctx.ID().getText();
         expr = self.c_translation[ctx.expr()]
-        self.c_translation[ctx] = f'{ID} = {expr}'
+        self.c_translation[ctx] = f'{ID} = {expr};'
 
     def exitWhile(self, ctx: ThrobacParser.WhileContext):
         print("\nexitWhile")
 
     def exitIf(self, ctx: ThrobacParser.IfContext):
         print("\nExiting exitIf ")
+
 
     def exitPrintNumber(self, ctx: ThrobacParser.PrintNumberContext):
 
@@ -103,6 +104,7 @@ class Throbac2CTranslator(ThrobacListener):
 
         # Setting translation
         self.c_translation[ctx] = f'printf("%d", {this_expr});';
+
 
     def exitPrintString(self, ctx: ThrobacParser.PrintStringContext):
 
@@ -133,7 +135,9 @@ class Throbac2CTranslator(ThrobacListener):
 
 
     def exitFuncCallStmt(self, ctx: ThrobacParser.FuncCallStmtContext):
-        print("\nexitFuncCallStmt")
+
+        # Literally just the function call, but with ';'
+        self.c_translation[ctx] = self.c_translation[ctx.funcCall()] + ';';
 
     def exitParens(self, ctx: ThrobacParser.ParensContext):
         self.c_translation[ctx] = f'({self.c_translation[ctx.expr()]})'
@@ -229,7 +233,9 @@ class Throbac2CTranslator(ThrobacListener):
 
     def exitFuncCallExpr(self, ctx: ThrobacParser.FuncCallExprContext):
 
-        print("\nExiting Func Call Expr. ")
+        # Literally just the function call
+        self.c_translation[ctx] = self.c_translation[ctx.funcCall()];
+
 
 
     def exitMulDiv(self, ctx: ThrobacParser.MulDivContext):

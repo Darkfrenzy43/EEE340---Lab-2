@@ -112,13 +112,15 @@ TEST_CASES = [
     ('countdown(10, announce)', 'APUD .I.NIL., announce VOCO countdown', 'funcCall'),
 
     # function call expression
+    ('outerfunc(countdown(10, announce)) + 1', 'APUD APUD .I.NIL., announce VOCO countdown VOCO outerfunc ADDO .I.', 'expr'),
 
     # function call statement
+    ('result = countdown(10, announce);', 'result APUD .I.NIL., announce VOCO countdown VALORUM', 'statement'),
 
     # assignment
-    ('current = start', 'current start VALORUM', 'statement'),
-    ('x = 32', 'x .III.II. VALORUM', 'statement'),
-    ('string = "HELLO"', 'string ^HELLO^ VALORUM', 'statement'),
+    ('current = start;', 'current start VALORUM', 'statement'),
+    ('x = 32;', 'x .III.II. VALORUM', 'statement'),
+    ('string = "HELLO";', 'string ^HELLO^ VALORUM', 'statement'),
 
     # return
     ('return count;', 'count REDEO', 'statement'),
