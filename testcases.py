@@ -1,9 +1,9 @@
 """
 Test cases for the Throbac to C transpiler
 
-Author: TODO: your names here
+Author: OCdt Aaron Brown and OCdt Liethan Velasco
 
-Version: TODO: submission date here
+Version: February 8 2023
 """
 
 import unittest
@@ -138,16 +138,6 @@ TEST_CASES = [
     ('printf("%s", "SOMESTR");', '^SOMESTR^ LOCUTIO.IMPRIMO', 'statement'),
     ('printf("%s", __throbac_cat("STR", "ING"));', '^STR^ IUNGO ^ING^ LOCUTIO.IMPRIMO', 'statement'),
 
-
-
-    # block ME
-    # ('printf("HELLOWORLD"); return 2;', '^HELLO^ LOCUTIO.IMPRIMO .II. REDEO', 'block'),
-
-    # block
-    #('printf("HELLOWORLD"); return 2;', '^HELLO^ LOCUTIO.IMPRIMO .II. REDEO', 'block'),
-    ('var = "HELLO";\nreturn 77 + 6;', 'var ^HELLO^ VALORUM .VII.VII. ADDO .VI. REDEO', 'block'),
-
-
     # while
 
 
@@ -157,12 +147,12 @@ TEST_CASES = [
     ('printf("%s", "false");', 'NI NI FALSUM VERITAS.IMPRIMO', 'statement'),
 
     # block
-    #('printf("%s", "HELLOWORLD"); return 2;', '^HELLO^ LOCUTIO.IMPRIMO .II. REDEO', 'block'),
+    ('printf("%s", "HELLOWORLD");\nreturn 2;', '^HELLOWORLD^ LOCUTIO.IMPRIMO .II. REDEO', 'block'),
     ('var = "HELLO";\nreturn 77 + 6;', 'var ^HELLO^ VALORUM .VII.VII. ADDO .VI. REDEO', 'block'),
 
     # while
-    #('while (current > 0) {\ncurrent = displayanddecrement(current);\n}',
-     #'current SUPRA .NIL. DUM >\ncurrent APUD current VOCO displayanddecrement VALORUM\n<', 'statement'),
+    ('while (current > 0) {\ncurrent = displayanddecrement(current);\n}',
+     'current SUPRA .NIL. DUM >\ncurrent APUD current VOCO displayanddecrement VALORUM\n<', 'statement'),
     ('while (x > 10) {\nx = x + 2;\n}', 'x SUPRA .I.NIL. DUM >x x ADDO .II. VALORUM<', 'statement'),
 
     # if
@@ -172,11 +162,6 @@ TEST_CASES = [
     ('bool anbooleanyep', 'anbooleanyep : VERITAS', 'nameDef'),
     ('char* somethingcool', 'somethingcool : LOCUTIO', 'nameDef'),
 
-    #('if (count == 3) {\n printf("%s", "GET.READY\\n");\n} else {\nprintf("%s","\\n");\n}',
-     #'count IDEM .III. SI >\n^+GET.READY+^ LOCUTIO.IMPRIMO\n< ALUID >^+^ LOCUTIO.IMPRIMO\n<', 'statement'),
-    ('if (test >= x) {\nreturn test;\n} else {\nreturn x;\n}',
-     'test SUPRA.IDEM x SI >test REDEO< ALUID >x REDEO<', 'statement'),
-    # nameDef
 
     # varDec
     ('int someint = 0;', 'someint : NUMERUS MUTABILIS', 'varDec'),
@@ -184,7 +169,7 @@ TEST_CASES = [
     ('bool somebool = false;', 'somebool : VERITAS MUTABILIS', 'varDec'),
 
     # varBlock
-    ('int someint = 0;\nchar* somestr = NULL;', 'someint : NUMERUS MUTABILIS somestr : LOCUTIO MUTABILIS', 'varBlock')
+    ('int someint = 0;\nchar* somestr = NULL;', 'someint : NUMERUS MUTABILIS somestr : LOCUTIO MUTABILIS', 'varBlock'),
     # body
     # main
 
