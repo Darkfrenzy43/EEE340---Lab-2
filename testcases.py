@@ -127,30 +127,25 @@ TEST_CASES = [
     # print int
     # print string
     # print bool
+    ('printf("%s", "true");', 'VERUM VERITAS.IMPRIMO', 'statement'),
+    ('printf("%s", "false");', 'NI VERUM VERITAS.IMPRIMO', 'statement'),
+    ('printf("%s", "false");', 'NI NI FALSUM VERITAS.IMPRIMO', 'statement'),
+
     # block
     ('printf("HELLOWORLD"); return 2;', '^HELLO^ LOCUTIO.IMPRIMO .II. REDEO', 'block'),
     #('printf("HELLOWORLD"); return 2;', '^HELLO^ LOCUTIO.IMPRIMO .II. REDEO', 'block'),
     ('var = "HELLO";\nreturn 77 + 6;', 'var ^HELLO^ VALORUM .VII.VII. ADDO .VI. REDEO', 'block'),
 
     # while
-    # won't be able to test as I wasn't able to make block
     ('while (current > 0) {\ncurrent = displayanddecrement(current);\n}',
      'current SUPRA .NIL. DUM >\ncurrent APUD current VOCO displayanddecrement VALORUM\n<', 'statement'),
+
     # if
     ('if (count == 3) {\n printf("%s", "GET.READY\\n");\n} else {\nprintf("%s","\\n");\n}',
      'count IDEM .III. SI >\n^+GET.READY+^ LOCUTIO.IMPRIMO\n< ALUID >^+^ LOCUTIO.IMPRIMO\n<', 'statement'),
-    # nameDef
-    # print int
-    # print string
-    # print bool
-    ('printf("%s", "true");', 'VERUM VERITAS.IMPRIMO', 'statement'),
-    ('printf("%s", "false");', 'NI VERUM VERITAS.IMPRIMO', 'statement'),
-    ('printf("%s", "false");', 'NI NI FALSUM VERITAS.IMPRIMO', 'statement'),
 
-    # block
-    # while
-    # if
     # nameDef
+
     # varDec
     # varBlock
     # body
