@@ -165,6 +165,10 @@ TEST_CASES = [
     ('while (x > 10) {\nx = x + 2;\n}', 'x SUPRA .I.NIL. DUM >x x ADDO .II. VALORUM<', 'statement'),
 
     # if
+    #('if (count == 3) {\n printf("%s", "GET.READY\\n");\n} else {\nprintf("%s","\\n");\n}',
+    #'count IDEM .III. SI >\n^+GET.READY+^ LOCUTIO.IMPRIMO\n< ALUID >^+^ LOCUTIO.IMPRIMO\n<', 'statement'),
+    ('if (test >= x) {\nreturn test;\n} else {\nreturn x;\n}',
+     'test SUPRA.IDEM x SI >test REDEO< ALUID >x REDEO<', 'statement'),
 
     # nameDef
     ('int anid', 'anid : NUMERUS', 'nameDef'),
