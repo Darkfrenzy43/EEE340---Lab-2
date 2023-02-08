@@ -90,7 +90,11 @@ class Throbac2CTranslator(ThrobacListener):
         self.c_translation[ctx] = f'{ID} = {expr};'
 
     def exitWhile(self, ctx: ThrobacParser.WhileContext):
-        print("\nexitWhile")
+        expr = self.c_translation[ctx.expr()]
+        block = self.c_translation[ctx.block()]
+
+        # using double { escapes. print('{{') = '{'
+        self.c_translation[ctx] = f'while ({expr}) {{\n{block}\n}}'
 
     def exitIf(self, ctx: ThrobacParser.IfContext):
         print("\nExiting exitIf ")

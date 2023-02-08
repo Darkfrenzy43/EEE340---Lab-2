@@ -127,10 +127,13 @@ TEST_CASES = [
     # print int
     # print string
     # print bool
-    # block ME
+    # block
     ('printf("HELLOWORLD"); return 2;', '^HELLO^ LOCUTIO.IMPRIMO .II. REDEO', 'block'),
 
     # while
+    # won't be able to test as I wasn't able to make block
+    ('while (current > 0) {\ncurrent = displayanddecrement(current);\n}',
+     'current SUPRA .NIL. DUM >\ncurrent APUD current VOCO displayanddecrement VALORUM\n<', 'statement'),
     # if
     # nameDef
     # print int
