@@ -97,20 +97,29 @@ class Throbac2CTranslator(ThrobacListener):
         print("\nExiting exitIf ")
 
     def exitPrintNumber(self, ctx: ThrobacParser.PrintNumberContext):
-        print("\nExiting print number")
+
+        # Retrieving expr value
+        this_expr = self.c_translation[ctx.expr()];
+
+        # Setting translation
+        self.c_translation[ctx] = f'printf("%d", {this_expr});';
 
     def exitPrintString(self, ctx: ThrobacParser.PrintStringContext):
-        print("\nExiting Print String ")
+
+        # Retrieving expr value
+        this_expr = self.c_translation[ctx.expr()];
+
+        # Setting translation
+        self.c_translation[ctx] = f'printf("%s", {this_expr});';
+
 
     def exitPrintBool(self, ctx: ThrobacParser.PrintBoolContext):
 
         # Retrieving expr value
         this_expr = self.c_translation[ctx.expr()];
 
-        StrResult = "true" if this_expr == "true" else "false";
-
         # Setting translation
-        self.c_translation[ctx] = f'printf("%s", "{StrResult}");';
+        self.c_translation[ctx] = f'printf("%s", "{this_expr}");';
 
 
     def exitReturn(self, ctx: ThrobacParser.ReturnContext):

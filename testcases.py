@@ -48,6 +48,7 @@ TEST_CASES = [
     ('0', '.NIL.', 'expr'),
     ('7', '.NIL.NIL.VII.', 'expr'),  # trim leading zeroes
     ('1234567890', '.I.II.III.IV.V.VI.VII.VIII.IX.NIL.', 'expr'),
+
     # strings
     ('"HELLO.WORLD"', '^HELLO.WORLD^', 'expr'),
     ('""', '^^', 'expr'),
@@ -120,18 +121,22 @@ TEST_CASES = [
     ('string = "HELLO"', 'string ^HELLO^ VALORUM', 'statement'),
 
     # return
-
     ('return count;', 'count REDEO', 'statement'),
     ('return 20 == 75;', '.II.NIL. IDEM .VII.V. REDEO', 'statement'),
     ('return "SOMESTRING";', '^SOMESTRING^ REDEO', 'statement'),
     ('return;', ' REDEO', 'statement'),
-    ('return', 'REDEO', 'statement'),
-    ('return count', 'count REDEO', 'statement'),
-    ('return 84', '.VIII.IV. REDEO', 'statement'),
-    ('return 43 * 16', '.IV.III. CONGERO .I.VI. REDEO', 'statement'),
+    ('return 84;', '.VIII.IV. REDEO', 'statement'),
+    ('return 43 * 16;', '.IV.III. CONGERO .I.VI. REDEO', 'statement'),
 
     # print int
+    ('printf("%d", 20);', '.II.NIL. NUMERUS.IMPRIMO', 'statement'),
+    ('printf("%d", 70 + 2);', '.VII.NIL. ADDO .II. NUMERUS.IMPRIMO', 'statement'),
+    ('printf("%d", 1234567890 * 3);', '.I.II.III.IV.V.VI.VII.VIII.IX.NIL. CONGERO .III. NUMERUS.IMPRIMO', 'statement'),
+
     # print string
+    ('printf("%s", "SOMESTR");', '^SOMESTR^ LOCUTIO.IMPRIMO', 'statement'),
+    ('printf("%s", __throbac_cat("STR", "ING"));', '^STR^ IUNGO ^ING^ LOCUTIO.IMPRIMO', 'statement'),
+
     # print bool
     ('printf("%s", "true");', 'VERUM VERITAS.IMPRIMO', 'statement'),
     ('printf("%s", "false");', 'NI VERUM VERITAS.IMPRIMO', 'statement'),
