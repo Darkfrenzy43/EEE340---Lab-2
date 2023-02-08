@@ -68,7 +68,7 @@ TEST_CASES = [
     ('(false)', '(FALSUM)', 'expr'),
     ('(6 * 8)', '(.VI. CONGERO .VIII.)', 'expr'),
 
-    # compare
+
 
 
     # concatenation
@@ -78,7 +78,7 @@ TEST_CASES = [
     ('__throbac_cat("HELLO", "WORLD")', '^HELLO^ IUNGO ^WORLD^', 'expr'),
 
 
-    # Added from Brown
+    # compare
     ('20 == 75', '.II.NIL. IDEM .VII.V.', 'expr'),
     ('31 != 23', '.III.I. NI.IDEM .II.III.', 'expr'),
     ('49 < 28', '.IV.IX. INFRA .II.VIII.', 'expr'),
@@ -123,10 +123,15 @@ TEST_CASES = [
     ('return count;', 'count REDEO', 'statement'),
     ('return 20 == 75;', '.II.NIL. IDEM .VII.V. REDEO', 'statement'),
     ('return "SOMESTRING";', '^SOMESTRING^ REDEO', 'statement'),
+    ('return;', ' REDEO', 'statement'),
 
     # print int
     # print string
     # print bool
+    ('printf("%s", "true");', 'VERUM VERITAS.IMPRIMO', 'statement'),
+    ('printf("%s", "false");', 'NI VERUM VERITAS.IMPRIMO', 'statement'),
+    ('printf("%s", "false");', 'NI NI FALSUM VERITAS.IMPRIMO', 'statement'),
+
     # block
     # while
     # if
