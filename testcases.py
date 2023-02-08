@@ -138,7 +138,7 @@ TEST_CASES = [
     # while
     #('while (current > 0) {\ncurrent = displayanddecrement(current);\n}',
      #'current SUPRA .NIL. DUM >\ncurrent APUD current VOCO displayanddecrement VALORUM\n<', 'statement'),
-    #('while (x > 10) {\nx = x + 2;\n}', 'x SUPRA .I.NIL. >\nx x ADDO 2 VALORUM', 'statement'),
+    ('while (x > 10) {\nx = x + 2;\n}', 'x SUPRA .I.NIL. DUM >x x ADDO .II. VALORUM<', 'statement'),
 
     # if
     #('if (count == 3) {\n printf("%s", "GET.READY\\n");\n} else {\nprintf("%s","\\n");\n}',
