@@ -89,21 +89,22 @@ TEST_CASES = [
     # function call expression
     # function call statement
     # assignment
-    ('current = start', 'current start VALORUM', 'statement'),
-    ('x = 32', 'x .III.II. VALORUM', 'statement'),
-    ('string = "HELLO"', 'string ^HELLO^ VALORUM', 'statement'),
+    ('current = start;', 'current start VALORUM', 'statement'),
+    ('x = 32;', 'x .III.II. VALORUM', 'statement'),
+    ('string = "HELLO";', 'string ^HELLO^ VALORUM', 'statement'),
     # return
     ('return', 'REDEO', 'statement'),
     ('return count', 'count REDEO', 'statement'),
     ('return 84', '.VIII.IV. REDEO', 'statement'),
-    ('return 43 * 16', '.IV.III. CONGERO .I.VI. REDEO', 'statement')
+    ('return 43 * 16', '.IV.III. CONGERO .I.VI. REDEO', 'statement'),
     # print int
     # print string
     # print bool
-    # block
-    # while
-    # if
-    # nameDef
+    # block ME
+    ('printf("HELLOWORLD"); return 2;', '^HELLO^ LOCUTIO.IMPRIMO .II. REDEO', 'block'),
+    # while Me
+    # if Me
+    # nameDef Me
     # varDec
     # varBlock
     # body

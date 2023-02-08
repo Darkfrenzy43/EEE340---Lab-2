@@ -79,10 +79,9 @@ class Throbac2CTranslator(ThrobacListener):
         print("\nexitBlock")
 
     def exitAssignment(self, ctx: ThrobacParser.AssignmentContext):
-        # TODO IDK if this is a legit way to get the ID but it seems to work
         ID = ctx.ID()
         expr = self.c_translation[ctx.expr()]
-        self.c_translation[ctx] = f'{ID} = {expr}'
+        self.c_translation[ctx] = f'{ID} = {expr};'
 
     def exitWhile(self, ctx: ThrobacParser.WhileContext):
         print("\nexitWhile")
