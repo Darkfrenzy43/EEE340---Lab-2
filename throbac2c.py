@@ -96,7 +96,19 @@ class Throbac2CTranslator(ThrobacListener):
        print("\nexitBody")
 
     def exitVarDec(self, ctx: ThrobacParser.VarDecContext):
-       print("\nexitVarDar")
+
+        # Finding initial assignment value
+        this_type = ctx.nameDef().TYPE().getText();
+        ass_str = ("= 0" if this_type == "NUMERUS" else
+                   "= NULL" if this_type == "LOCUTIO" else
+                   "= false")
+
+        # Getting translation of namedef
+        this_nameDef = self.c_translation[ctx.nameDef()];
+
+        # Setting translation
+        self.c_translation[ctx] = f'{this_nameDef} {ass_str};';
+
 
     def exitNameDef(self, ctx: ThrobacParser.NameDefContext):
 

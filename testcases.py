@@ -177,8 +177,11 @@ TEST_CASES = [
 
     # nameDef
 
-
     # varDec
+    ('int someint = 0;', 'someint : NUMERUS MUTABILIS', 'varDec'),
+    ('char* somestr = NULL;', 'somestr : LOCUTIO MUTABILIS', 'varDec'),
+    ('bool somebool = false;', 'somebool : VERITAS MUTABILIS', 'varDec'),
+
     # varBlock
     # body
     # main
