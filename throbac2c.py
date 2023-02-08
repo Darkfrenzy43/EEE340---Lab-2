@@ -58,13 +58,36 @@ class Throbac2CTranslator(ThrobacListener):
 
         # TODO Don't we want to put a zero terminator here? ^^
 
-    # --- TODO: yours to provide (not in this order - see `testcases.py`)
+
 
     def exitScript(self, ctx: ThrobacParser.ScriptContext):
         print("\nexitScript")
 
+
     def exitFuncDef(self, ctx: ThrobacParser.FuncDefContext):
-       print("\nexitFuncDef")
+
+        # todo --- to be tested still
+
+        # Unpack the namedefs
+        nameDef_list = [self.c_translation[n] for n in ctx.nameDef()];
+        nameDef_str = ', '.join(nameDef_list);
+
+        # Get ID token
+        this_id = ctx.ID().getText();
+
+        # Get the body translation
+        this_body = self.c_translation[ctx.body()];
+
+        # return for TYPE could be none
+        if ctx.TYPE() != None:
+            this_return = ctx.TYPE().getText();
+        else:
+            this_return = "void";
+
+        # Setting translation
+        self.c_translation[ctx] = f'{this_return} {this_id}({nameDef_str}) > {this_body} <';
+
+
 
     def exitMain(self, ctx: ThrobacParser.MainContext):
        print("\nexitMain")
@@ -73,10 +96,34 @@ class Throbac2CTranslator(ThrobacListener):
        print("\nexitBody")
 
     def exitVarDec(self, ctx: ThrobacParser.VarDecContext):
-       print("\nexitVarDar")
+
+        # Finding initial assignment value
+        this_type = ctx.nameDef().TYPE().getText();
+        ass_str = ("= 0" if this_type == "NUMERUS" else
+                   "= NULL" if this_type == "LOCUTIO" else
+                   "= false")
+
+        # Getting translation of namedef
+        this_nameDef = self.c_translation[ctx.nameDef()];
+
+        # Setting translation
+        self.c_translation[ctx] = f'{this_nameDef} {ass_str};';
+
 
     def exitNameDef(self, ctx: ThrobacParser.NameDefContext):
-       print("\nexitNameDef")
+
+        # Getting lexical tokens
+        this_id = ctx.ID().getText();
+        this_type = ctx.TYPE().getText();
+
+        # Determining strings
+        str_id = ('int' if this_type == "NUMERUS" else
+                    'char*' if this_type == "LOCUTIO"
+                        else 'bool');
+
+
+        # Setting the translation todo - temporary form
+        self.c_translation[ctx] = f'{str_id} {this_id}';
 
     def exitVarBlock(self, ctx: ThrobacParser.VarBlockContext):
        print("\nexitVarBlock")
@@ -86,7 +133,9 @@ class Throbac2CTranslator(ThrobacListener):
         self.c_translation[ctx] = '\n'.join(exprList)
 
     def exitAssignment(self, ctx: ThrobacParser.AssignmentContext):
-        ID = ctx.ID()
+
+        # TODO IDK if this is a legit way to get the ID but it seems to work
+        ID = ctx.ID().getText();
         expr = self.c_translation[ctx.expr()]
         self.c_translation[ctx] = f'{ID} = {expr};'
 
@@ -107,21 +156,34 @@ class Throbac2CTranslator(ThrobacListener):
             block2 = self.c_translation[ctx.block(1)]
             self.c_translation[ctx] = f'{self.c_translation[ctx]} else {{\n{block2}\n}}'
 
+
     def exitPrintNumber(self, ctx: ThrobacParser.PrintNumberContext):
-        print("\nExiting print number")
+
+        # Retrieving expr value
+        this_expr = self.c_translation[ctx.expr()];
+
+        # Setting translation
+        self.c_translation[ctx] = f'printf("%d", {this_expr});';
+
 
     def exitPrintString(self, ctx: ThrobacParser.PrintStringContext):
-        print("\nExiting Print String ")
+
+        # Retrieving expr value
+        this_expr = self.c_translation[ctx.expr()];
+
+        # Setting translation
+        self.c_translation[ctx] = f'printf("%s", {this_expr});';
+
 
     def exitPrintBool(self, ctx: ThrobacParser.PrintBoolContext):
 
         # Retrieving expr value
         this_expr = self.c_translation[ctx.expr()]
 
-        StrResult = "true" if this_expr == "true" else "false"
-
         # Setting translation
-        self.c_translation[ctx] = f'printf("%s", "{StrResult}");'
+        self.c_translation[ctx] = f'printf("%s", "{this_expr}");';
+
+
 
     def exitReturn(self, ctx: ThrobacParser.ReturnContext):
 
@@ -133,7 +195,9 @@ class Throbac2CTranslator(ThrobacListener):
             self.c_translation[ctx] = f"return {this_expr};"
 
     def exitFuncCallStmt(self, ctx: ThrobacParser.FuncCallStmtContext):
-        print("\nexitFuncCallStmt")
+
+        # Literally just the function call, but with ';'
+        self.c_translation[ctx] = self.c_translation[ctx.funcCall()] + ';';
 
     def exitParens(self, ctx: ThrobacParser.ParensContext):
         self.c_translation[ctx] = f'({self.c_translation[ctx.expr()]})'
@@ -220,7 +284,11 @@ class Throbac2CTranslator(ThrobacListener):
                                    else f'{left} - {right}')
 
     def exitFuncCallExpr(self, ctx: ThrobacParser.FuncCallExprContext):
-        print("\nExiting Func Call Expr. ")
+
+
+        # Literally just the function call
+        self.c_translation[ctx] = self.c_translation[ctx.funcCall()];
+
 
     def exitMulDiv(self, ctx: ThrobacParser.MulDivContext):
         # gets the values of the left and right node
