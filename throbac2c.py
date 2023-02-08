@@ -61,7 +61,9 @@ class Throbac2CTranslator(ThrobacListener):
 
 
     def exitScript(self, ctx: ThrobacParser.ScriptContext):
-        print("\nexitScript")
+        funcDefList = [self.c_translation[this_dec] for this_dec in ctx.funcDef()]
+        self.c_translation[ctx] = '\n'.join(funcDefList)
+        self.c_translation[ctx] += f'{self.c_translation[ctx.main()]}{ctx.EOF()}'
 
 
     def exitFuncDef(self, ctx: ThrobacParser.FuncDefContext):
