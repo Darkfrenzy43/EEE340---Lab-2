@@ -182,6 +182,8 @@ TEST_CASES = [
     # body
     ('int testint = 0;\ntestint = 30;\nreturn;', 'testint : NUMERUS MUTABILIS testint .III.NIL. VALORUM REDEO', 'body'),
     # main
+    ('int main() {\n\tint testint = 0;\n\ttestint = 30;\n\treturn;\n}', 'testint : NUMERUS MUTABILIS testint .III.NIL. VALORUM REDEO', 'main'),
+    ('int main() {\n\tint testint = 0;\n\ttestint = 30;\n\treturn 0;\n}', 'testint : NUMERUS MUTABILIS testint .III.NIL. VALORUM', 'main'),
 
     # funcdef <-- todo last
     # script

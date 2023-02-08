@@ -90,10 +90,19 @@ class Throbac2CTranslator(ThrobacListener):
 
 
     def exitMain(self, ctx: ThrobacParser.MainContext):
-        # TODO need to test
-        body = "\t".join(self.c_translation[ctx.body()])
-        self.c_translation[ctx] = f'int main() {{\n{body}\n\treturn 0;}}'
+        # separated the strings lines in order to add tabulations
+        # and to check if there is a return statement
+        sepratedLines = self.c_translation[ctx.body()].splitlines()
 
+        # if there is already a return statement don't create a second one
+        if ("return" in sepratedLines[-1]):
+            returnstr = ""
+        else:
+            returnstr = "\treturn 0;\n"
+
+        # recreate a single string that has proper tabulations
+        body = "\n\t".join(sepratedLines)
+        self.c_translation[ctx] = f'int main() {{\n\t{body}\n{returnstr}}}'
 
     def exitBody(self, ctx: ThrobacParser.BodyContext):
         # TODO need to test
