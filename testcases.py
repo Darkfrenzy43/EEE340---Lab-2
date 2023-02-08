@@ -157,7 +157,9 @@ TEST_CASES = [
     # varBlock
     # body
     # main
-    # funcdef
+
+
+    # funcdef <-- todo last
     # script
     
 

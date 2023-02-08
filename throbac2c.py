@@ -58,15 +58,36 @@ class Throbac2CTranslator(ThrobacListener):
 
         # Don't we want to put a zero terminator here? ^^
 
-    # --- TODO: yours to provide (not in this order - see `testcases.py`)
+
 
     def exitScript(self, ctx: ThrobacParser.ScriptContext):
         print("\nexitScript")
 
+
     def exitFuncDef(self, ctx: ThrobacParser.FuncDefContext):
 
+        # todo --- to be tested still
 
-       pass;
+        # Unpack the namedefs
+        nameDef_list = [self.c_translation[n] for n in ctx.nameDef()];
+        nameDef_str = ', '.join(nameDef_list);
+
+        # Get ID token
+        this_id = ctx.ID().getText();
+
+        # Get the body translation
+        this_body = self.c_translation[ctx.body()];
+
+        # return for TYPE could be none
+        if ctx.TYPE() != None:
+            this_return = ctx.TYPE().getText();
+        else:
+            this_return = "void";
+
+        # Setting translation
+        self.c_translation[ctx] = f'{this_return} {this_id}({nameDef_str}) > {this_body} <';
+
+
 
     def exitMain(self, ctx: ThrobacParser.MainContext):
        print("\nexitMain")
