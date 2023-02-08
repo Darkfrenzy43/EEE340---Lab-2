@@ -69,15 +69,11 @@ TEST_CASES = [
     ('(false)', '(FALSUM)', 'expr'),
     ('(6 * 8)', '(.VI. CONGERO .VIII.)', 'expr'),
 
-
-
-
     # concatenation
     ('__throbac_cat("HELLO.WORLD", "ISHERE")', '^HELLO.WORLD^ IUNGO ^ISHERE^', 'expr'),
     ('__throbac_cat(__throbac_cat("WHYARE", "YOU"), "SCREAMING.\\nSTOP.")', '^WHYARE^ IUNGO ^YOU^ IUNGO ^SCREAMING.+STOP.^', 'expr'),
     (r'__throbac_cat(message, "\n")', 'message IUNGO ^+^ ', 'expr'),
     ('__throbac_cat("HELLO", "WORLD")', '^HELLO^ IUNGO ^WORLD^', 'expr'),
-
 
     # compare
     ('20 == 75', '.II.NIL. IDEM .VII.V.', 'expr'),
@@ -87,9 +83,6 @@ TEST_CASES = [
     ('5 > 87', '.V. SUPRA .VIII.VII.', 'expr'),
     ('12 >= 2', '.I.II. SUPRA.IDEM .II.', 'expr'),
     ('9 > 10', '.IX. SUPRA .I.NIL.', 'expr'),
-
-
-
 
     # add and subtract
     ('somevar + b', 'somevar ADDO b', 'expr'),
@@ -104,7 +97,6 @@ TEST_CASES = [
     ('true', 'NI FALSUM', 'expr'),
     ('false', 'NI NI NI VERUM', 'expr'),
     ('true', 'NI NI NI NI NI FALSUM', 'expr'),
-
     ('-7', 'NEGANS .NIL.NIL.VII.', 'expr'),
     ('7', 'NEGANS NEGANS .NIL.NIL.VII.', 'expr'),
 
@@ -122,11 +114,20 @@ TEST_CASES = [
     ('x = 32;', 'x .III.II. VALORUM', 'statement'),
     ('string = "HELLO";', 'string ^HELLO^ VALORUM', 'statement'),
 
+    ('current = start;', 'current start VALORUM', 'statement'),
+    ('x = 32;', 'x .III.II. VALORUM', 'statement'),
+    ('string = "HELLO";', 'string ^HELLO^ VALORUM', 'statement'),
+
+
     # return
     ('return count;', 'count REDEO', 'statement'),
     ('return 20 == 75;', '.II.NIL. IDEM .VII.V. REDEO', 'statement'),
     ('return "SOMESTRING";', '^SOMESTRING^ REDEO', 'statement'),
     ('return;', ' REDEO', 'statement'),
+
+    ('return;', 'REDEO', 'statement'),
+    ('return count;', 'count REDEO', 'statement'),
+
     ('return 84;', '.VIII.IV. REDEO', 'statement'),
     ('return 43 * 16;', '.IV.III. CONGERO .I.VI. REDEO', 'statement'),
 
@@ -139,6 +140,16 @@ TEST_CASES = [
     ('printf("%s", "SOMESTR");', '^SOMESTR^ LOCUTIO.IMPRIMO', 'statement'),
     ('printf("%s", __throbac_cat("STR", "ING"));', '^STR^ IUNGO ^ING^ LOCUTIO.IMPRIMO', 'statement'),
 
+    # print bool
+
+    # block ME
+    # ('printf("HELLOWORLD"); return 2;', '^HELLO^ LOCUTIO.IMPRIMO .II. REDEO', 'block'),
+
+    # while
+    # if
+    # nameDef
+    # print int
+    # print string
     # print bool
     ('printf("%s", "true");', 'VERUM VERITAS.IMPRIMO', 'statement'),
     ('printf("%s", "false");', 'NI VERUM VERITAS.IMPRIMO', 'statement'),
@@ -161,8 +172,6 @@ TEST_CASES = [
 
     # funcdef <-- todo last
     # script
-    
-
 ]
 
 
