@@ -111,12 +111,19 @@ TEST_CASES = [
     ('countdown(10, announce)', 'APUD .I.NIL., announce VOCO countdown', 'funcCall'),
 
     # function call expression
+
     # function call statement
+
     # assignment
     ('current = start', 'current start VALORUM', 'statement'),
     ('x = 32', 'x .III.II. VALORUM', 'statement'),
     ('string = "HELLO"', 'string ^HELLO^ VALORUM', 'statement'),
+
     # return
+    ('return count;', 'count REDEO', 'statement'),
+    ('return 20 == 75;', '.II.NIL. IDEM .VII.V. REDEO', 'statement'),
+    ('return "SOMESTRING";', '^SOMESTRING^ REDEO', 'statement'),
+
     # print int
     # print string
     # print bool
