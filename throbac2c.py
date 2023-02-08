@@ -97,7 +97,14 @@ class Throbac2CTranslator(ThrobacListener):
         self.c_translation[ctx] = f'while ({expr}) {{\n{block}\n}}'
 
     def exitIf(self, ctx: ThrobacParser.IfContext):
-        print("\nExiting exitIf ")
+        expr = self.c_translation[ctx.expr()]
+        block1 = self.c_translation[ctx.block(0)]
+
+        self.c_translation[ctx] = f'if ({expr}) {{\n{block1}\n}}'
+        # If there is an else statement
+        if ctx.block(2) != None:
+            block2 = self.c_translation[ctx.block(1)]
+            self.c_translation[ctx] = f'{self.c_translation[ctx]} else {{\n{block2}\n}}'
 
     def exitPrintNumber(self, ctx: ThrobacParser.PrintNumberContext):
         print("\nExiting print number")
@@ -108,12 +115,12 @@ class Throbac2CTranslator(ThrobacListener):
     def exitPrintBool(self, ctx: ThrobacParser.PrintBoolContext):
 
         # Retrieving expr value
-        this_expr = self.c_translation[ctx.expr()];
+        this_expr = self.c_translation[ctx.expr()]
 
-        StrResult = "true" if this_expr == "true" else "false";
+        StrResult = "true" if this_expr == "true" else "false"
 
         # Setting translation
-        self.c_translation[ctx] = f'printf("%s", "{StrResult}");';
+        self.c_translation[ctx] = f'printf("%s", "{StrResult}");'
 
     def exitReturn(self, ctx: ThrobacParser.ReturnContext):
 
@@ -121,7 +128,7 @@ class Throbac2CTranslator(ThrobacListener):
         if ctx.expr() is None:
             self.c_translation[ctx] = f"return;"
         else:
-            this_expr = self.c_translation[ctx.expr()];
+            this_expr = self.c_translation[ctx.expr()]
             self.c_translation[ctx] = f"return {this_expr};"
 
     def exitFuncCallStmt(self, ctx: ThrobacParser.FuncCallStmtContext):
@@ -133,8 +140,8 @@ class Throbac2CTranslator(ThrobacListener):
     def exitNegation(self, ctx: ThrobacParser.NegationContext):
 
         # Getting expr translation
-        expr_text = self.c_translation[ctx.expr()];
-        this_op = ctx.op.text;
+        expr_text = self.c_translation[ctx.expr()]
+        this_op = ctx.op.text
 
         # Do following if op is 'NI':
         if this_op == 'NI':
@@ -142,7 +149,7 @@ class Throbac2CTranslator(ThrobacListener):
             # Setting translation as needed
             self.c_translation[ctx] = ("true"
                                        if expr_text == "false"
-                                       else "false");
+                                       else "false")
 
         # Otherwise, do following if op is 'NEGANS':
         elif this_op == 'NEGANS':
@@ -151,7 +158,7 @@ class Throbac2CTranslator(ThrobacListener):
             # If was positive, return number with negative sign.
             self.c_translation[ctx] = (expr_text[1:]
                                        if expr_text[0] == "-"
-                                       else "-" + expr_text);
+                                       else "-" + expr_text)
 
     def exitCompare(self, ctx: ThrobacParser.CompareContext):
         # Might need to check if it is a number first
@@ -227,11 +234,11 @@ class Throbac2CTranslator(ThrobacListener):
     def exitFuncCall(self, ctx: ThrobacParser.FuncCallContext):
 
         # ID IS A LEXICAL TOKEN! DOESN'T HAVE A C_TRANSLATION??
-        this_id = ctx.ID().getText();
+        this_id = ctx.ID().getText()
 
         # Getting the expressions in a string
-        exprList = [self.c_translation[this_expr] for this_expr in ctx.expr()];
-        exprStr = ', '.join(exprList);
+        exprList = [self.c_translation[this_expr] for this_expr in ctx.expr()]
+        exprStr = ', '.join(exprList)
 
         # Setting translation
-        self.c_translation[ctx] = f'{this_id}({exprStr})';
+        self.c_translation[ctx] = f'{this_id}({exprStr})'

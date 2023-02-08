@@ -135,6 +135,8 @@ TEST_CASES = [
     ('while (current > 0) {\ncurrent = displayanddecrement(current);\n}',
      'current SUPRA .NIL. DUM >\ncurrent APUD current VOCO displayanddecrement VALORUM\n<', 'statement'),
     # if
+    ('if (count == 3) {\n printf("%s", "GET.READY\\n");\n} else {\nprintf("%s","\\n");\n}',
+     'count IDEM .III. SI >\n^+GET.READY+^ LOCUTIO.IMPRIMO\n< ALUID >^+^ LOCUTIO.IMPRIMO\n<', 'statement'),
     # nameDef
     # print int
     # print string
