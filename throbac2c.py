@@ -64,7 +64,9 @@ class Throbac2CTranslator(ThrobacListener):
         print("\nexitScript")
 
     def exitFuncDef(self, ctx: ThrobacParser.FuncDefContext):
-       print("\nexitFuncDef")
+
+
+       pass;
 
     def exitMain(self, ctx: ThrobacParser.MainContext):
        print("\nexitMain")
@@ -76,7 +78,19 @@ class Throbac2CTranslator(ThrobacListener):
        print("\nexitVarDar")
 
     def exitNameDef(self, ctx: ThrobacParser.NameDefContext):
-       print("\nexitNameDef")
+
+        # Getting lexical tokens
+        this_id = ctx.ID().getText();
+        this_type = ctx.TYPE().getText();
+
+        # Determining strings
+        str_id = ('int' if this_type == "NUMERUS" else
+                    'char*' if this_type == "LOCUTIO"
+                        else 'bool');
+
+
+        # Setting the translation todo - temporary form
+        self.c_translation[ctx] = f'{str_id} {this_id}';
 
     def exitVarBlock(self, ctx: ThrobacParser.VarBlockContext):
        print("\nexitVarBlock")

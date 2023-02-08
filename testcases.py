@@ -147,7 +147,12 @@ TEST_CASES = [
     # block
     # while
     # if
+
     # nameDef
+    ('int anid', 'anid : NUMERUS', 'nameDef'),
+    ('bool anbooleanyep', 'anbooleanyep : VERITAS', 'nameDef'),
+    ('char* somethingcool', 'somethingcool : LOCUTIO', 'nameDef'),
+
     # varDec
     # varBlock
     # body
