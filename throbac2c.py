@@ -111,7 +111,6 @@ class Throbac2CTranslator(ThrobacListener):
         # Setting translation
         self.c_translation[ctx] = f'printf("%s", "{StrResult}");';
 
-
     def exitReturn(self, ctx: ThrobacParser.ReturnContext):
 
         # Account for no expr added in return statement
@@ -120,7 +119,6 @@ class Throbac2CTranslator(ThrobacListener):
         else:
             this_expr = self.c_translation[ctx.expr()];
             self.c_translation[ctx] = f"return {this_expr};"
-
 
     def exitFuncCallStmt(self, ctx: ThrobacParser.FuncCallStmtContext):
         print("\nexitFuncCallStmt")
@@ -150,7 +148,6 @@ class Throbac2CTranslator(ThrobacListener):
             self.c_translation[ctx] = (expr_text[1:]
                                        if expr_text[0] == "-"
                                        else "-" + expr_text);
-
 
     def exitCompare(self, ctx: ThrobacParser.CompareContext):
         # Might need to check if it is a number first

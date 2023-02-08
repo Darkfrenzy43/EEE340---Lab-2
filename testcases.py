@@ -110,9 +110,9 @@ TEST_CASES = [
     ('current = start;', 'current start VALORUM', 'statement'),
     ('x = 32;', 'x .III.II. VALORUM', 'statement'),
     ('string = "HELLO";', 'string ^HELLO^ VALORUM', 'statement'),
-    ('current = start', 'current start VALORUM', 'statement'),
-    ('x = 32', 'x .III.II. VALORUM', 'statement'),
-    ('string = "HELLO"', 'string ^HELLO^ VALORUM', 'statement'),
+    ('current = start;', 'current start VALORUM', 'statement'),
+    ('x = 32;', 'x .III.II. VALORUM', 'statement'),
+    ('string = "HELLO";', 'string ^HELLO^ VALORUM', 'statement'),
 
     # return
     ('return count;', 'count REDEO', 'statement'),
