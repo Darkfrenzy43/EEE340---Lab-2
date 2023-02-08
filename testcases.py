@@ -124,10 +124,8 @@ TEST_CASES = [
     ('return 20 == 75;', '.II.NIL. IDEM .VII.V. REDEO', 'statement'),
     ('return "SOMESTRING";', '^SOMESTRING^ REDEO', 'statement'),
     ('return;', ' REDEO', 'statement'),
-
     ('return;', 'REDEO', 'statement'),
     ('return count;', 'count REDEO', 'statement'),
-
     ('return 84;', '.VIII.IV. REDEO', 'statement'),
     ('return 43 * 16;', '.IV.III. CONGERO .I.VI. REDEO', 'statement'),
 
@@ -140,7 +138,6 @@ TEST_CASES = [
     ('printf("%s", "SOMESTR");', '^SOMESTR^ LOCUTIO.IMPRIMO', 'statement'),
     ('printf("%s", __throbac_cat("STR", "ING"));', '^STR^ IUNGO ^ING^ LOCUTIO.IMPRIMO', 'statement'),
 
-    # print bool
 
 
     # block ME
@@ -152,23 +149,34 @@ TEST_CASES = [
 
 
     # while
-    # if
-    # nameDef
-    # print int
-    # print string
+
+
     # print bool
     ('printf("%s", "true");', 'VERUM VERITAS.IMPRIMO', 'statement'),
     ('printf("%s", "false");', 'NI VERUM VERITAS.IMPRIMO', 'statement'),
     ('printf("%s", "false");', 'NI NI FALSUM VERITAS.IMPRIMO', 'statement'),
 
     # block
+    #('printf("%s", "HELLOWORLD"); return 2;', '^HELLO^ LOCUTIO.IMPRIMO .II. REDEO', 'block'),
+    ('var = "HELLO";\nreturn 77 + 6;', 'var ^HELLO^ VALORUM .VII.VII. ADDO .VI. REDEO', 'block'),
+
     # while
+    #('while (current > 0) {\ncurrent = displayanddecrement(current);\n}',
+     #'current SUPRA .NIL. DUM >\ncurrent APUD current VOCO displayanddecrement VALORUM\n<', 'statement'),
+    #('while (x > 10) {\nx = x + 2;\n}', 'x SUPRA .I.NIL. >\nx x ADDO 2 VALORUM', 'statement'),
+
     # if
 
     # nameDef
     ('int anid', 'anid : NUMERUS', 'nameDef'),
     ('bool anbooleanyep', 'anbooleanyep : VERITAS', 'nameDef'),
     ('char* somethingcool', 'somethingcool : LOCUTIO', 'nameDef'),
+
+    #('if (count == 3) {\n printf("%s", "GET.READY\\n");\n} else {\nprintf("%s","\\n");\n}',
+     #'count IDEM .III. SI >\n^+GET.READY+^ LOCUTIO.IMPRIMO\n< ALUID >^+^ LOCUTIO.IMPRIMO\n<', 'statement'),
+
+    # nameDef
+
 
     # varDec
     # varBlock
