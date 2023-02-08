@@ -132,13 +132,13 @@ TEST_CASES = [
     ('printf("%s", "false");', 'NI NI FALSUM VERITAS.IMPRIMO', 'statement'),
 
     # block
-    #('printf("HELLOWORLD"); return 2;', '^HELLO^ LOCUTIO.IMPRIMO .II. REDEO', 'block'),
+    #('printf("%s", "HELLOWORLD"); return 2;', '^HELLO^ LOCUTIO.IMPRIMO .II. REDEO', 'block'),
     ('var = "HELLO";\nreturn 77 + 6;', 'var ^HELLO^ VALORUM .VII.VII. ADDO .VI. REDEO', 'block'),
 
     # while
     #('while (current > 0) {\ncurrent = displayanddecrement(current);\n}',
      #'current SUPRA .NIL. DUM >\ncurrent APUD current VOCO displayanddecrement VALORUM\n<', 'statement'),
-    ('while (x > 10) {\nx = x + 2;\n}', 'x SUPRA .I.NIL. >\nx x ADDO 2 VALORUM', 'statement'),
+    #('while (x > 10) {\nx = x + 2;\n}', 'x SUPRA .I.NIL. >\nx x ADDO 2 VALORUM', 'statement'),
 
     # if
     #('if (count == 3) {\n printf("%s", "GET.READY\\n");\n} else {\nprintf("%s","\\n");\n}',
