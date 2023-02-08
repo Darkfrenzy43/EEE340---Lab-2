@@ -140,7 +140,7 @@ TEST_CASES = [
 
 
 
-    # block ME
+    # block
     # ('printf("HELLOWORLD"); return 2;', '^HELLO^ LOCUTIO.IMPRIMO .II. REDEO', 'block'),
 
     # block
@@ -157,7 +157,7 @@ TEST_CASES = [
     ('printf("%s", "false");', 'NI NI FALSUM VERITAS.IMPRIMO', 'statement'),
 
     # block
-    #('printf("%s", "HELLOWORLD"); return 2;', '^HELLO^ LOCUTIO.IMPRIMO .II. REDEO', 'block'),
+    ('printf("%s", "HELLO");\nreturn 2;', '^HELLO^ LOCUTIO.IMPRIMO .II. REDEO', 'block'),
     ('var = "HELLO";\nreturn 77 + 6;', 'var ^HELLO^ VALORUM .VII.VII. ADDO .VI. REDEO', 'block'),
 
     # while
