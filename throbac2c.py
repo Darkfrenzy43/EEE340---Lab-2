@@ -59,6 +59,7 @@ class Throbac2CTranslator(ThrobacListener):
         # TODO Don't we want to put a zero terminator here? ^^
 
     def exitScript(self, ctx: ThrobacParser.ScriptContext):
+        # TODO need to test
         funcDefList = [self.c_translation[this_dec] for this_dec in ctx.funcDef()]
         self.c_translation[ctx] = '\n'.join(funcDefList)
         self.c_translation[ctx] += f'{self.c_translation[ctx.main()]}{ctx.EOF()}'
@@ -90,10 +91,12 @@ class Throbac2CTranslator(ThrobacListener):
         self.c_translation[ctx] = f'{this_return} {this_id}({nameDef_str}) > {this_body} <';
 
     def exitMain(self, ctx: ThrobacParser.MainContext):
+        # TODO need to test
         self.c_translation[ctx] = f'{self.c_translation[ctx.body()]}'
 
 
     def exitBody(self, ctx: ThrobacParser.BodyContext):
+        # TODO need to test
 
         # Unpack varblock and block
         this_vblock = self.c_translation[ctx.varBlock()];
