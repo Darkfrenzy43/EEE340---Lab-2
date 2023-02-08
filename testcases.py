@@ -186,9 +186,8 @@ TEST_CASES = [
     # varBlock
     ('int someint = 0;\nchar* somestr = NULL;', 'someint : NUMERUS MUTABILIS somestr : LOCUTIO MUTABILIS', 'varBlock'),
     # body
-    ('int testing = 0;\n'),
+    ('int testint = 0;\ntestint = 30;\nreturn;', 'testint : NUMERUS MUTABILIS testint .III.NIL. VALORUM REDEO', 'body'),
     # main
-
 
     # funcdef <-- todo last
     # script

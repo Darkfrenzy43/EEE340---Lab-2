@@ -104,7 +104,7 @@ class Throbac2CTranslator(ThrobacListener):
         this_block = self.c_translation[ctx.block()];
 
         # Set translation
-        self.c_translation[ctx] = f'{this_vblock} {this_block}';
+        self.c_translation[ctx] = f'{this_vblock}\n{this_block}';
 
 
     def exitVarDec(self, ctx: ThrobacParser.VarDecContext):
