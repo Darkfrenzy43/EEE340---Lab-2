@@ -68,8 +68,11 @@ class Throbac2CTranslator(ThrobacListener):
         # todo --- to be tested still
 
         # Unpack the namedefs
-        nameDef_list = [self.c_translation[n] for n in ctx.nameDef()];
-        nameDef_str = ', '.join(nameDef_list);
+        if ctx.nameDef != None:
+            nameDef_list = [self.c_translation[n] for n in ctx.nameDef()];
+            nameDef_str = ', '.join(nameDef_list);
+        else:
+            nameDef_str = '';
 
         # Get ID token
         this_id = ctx.ID().getText();
@@ -89,8 +92,16 @@ class Throbac2CTranslator(ThrobacListener):
     def exitMain(self, ctx: ThrobacParser.MainContext):
         self.c_translation[ctx] = f'{self.c_translation[ctx.body()]}'
 
+
     def exitBody(self, ctx: ThrobacParser.BodyContext):
-       print("\nexitBody")
+
+        # Unpack varblock and block
+        this_vblock = self.c_translation[ctx.varBlock()];
+        this_block = self.c_translation[ctx.block()];
+
+        # Set translation
+        self.c_translation[ctx] = f'{this_vblock} {this_block}';
+
 
     def exitVarDec(self, ctx: ThrobacParser.VarDecContext):
 
