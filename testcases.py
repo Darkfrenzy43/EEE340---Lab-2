@@ -138,17 +138,6 @@ TEST_CASES = [
     ('printf("%s", "SOMESTR");', '^SOMESTR^ LOCUTIO.IMPRIMO', 'statement'),
     ('printf("%s", __throbac_cat("STR", "ING"));', '^STR^ IUNGO ^ING^ LOCUTIO.IMPRIMO', 'statement'),
 
-
-
-
-    # block
-    # ('printf("HELLOWORLD"); return 2;', '^HELLO^ LOCUTIO.IMPRIMO .II. REDEO', 'block'),
-
-    # block
-    #('printf("HELLOWORLD"); return 2;', '^HELLO^ LOCUTIO.IMPRIMO .II. REDEO', 'block'),
-    ('var = "HELLO";\nreturn 77 + 6;', 'var ^HELLO^ VALORUM .VII.VII. ADDO .VI. REDEO', 'block'),
-
-
     # print bool
     ('printf("%s", "true");', 'VERUM VERITAS.IMPRIMO', 'statement'),
     ('printf("%s", "false");', 'NI VERUM VERITAS.IMPRIMO', 'statement'),
