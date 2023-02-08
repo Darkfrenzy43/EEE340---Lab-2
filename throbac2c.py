@@ -103,7 +103,7 @@ class Throbac2CTranslator(ThrobacListener):
 
         self.c_translation[ctx] = f'if ({expr}) {{\n{block1}\n}}'
         # If there is an else statement
-        if ctx.block(2) != None:
+        if ctx.block(1) != None:
             block2 = self.c_translation[ctx.block(1)]
             self.c_translation[ctx] = f'{self.c_translation[ctx]} else {{\n{block2}\n}}'
 
