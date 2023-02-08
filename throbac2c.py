@@ -92,7 +92,8 @@ class Throbac2CTranslator(ThrobacListener):
 
     def exitMain(self, ctx: ThrobacParser.MainContext):
         # TODO need to test
-        self.c_translation[ctx] = f'int main() {{\n\t{self.c_translation[ctx.body()]}\n\treturn 0;}}'
+        body = "\t".join(self.c_translation[ctx.body()])
+        self.c_translation[ctx] = f'int main() {{\n{body}\n\treturn 0;}}'
 
 
     def exitBody(self, ctx: ThrobacParser.BodyContext):

@@ -184,8 +184,9 @@ TEST_CASES = [
     ('bool somebool = false;', 'somebool : VERITAS MUTABILIS', 'varDec'),
 
     # varBlock
-    ('int someint = 0;\nchar* somestr = NULL;', 'someint : NUMERUS MUTABILIS somestr : LOCUTIO MUTABILIS', 'varBlock')
+    ('int someint = 0;\nchar* somestr = NULL;', 'someint : NUMERUS MUTABILIS somestr : LOCUTIO MUTABILIS', 'varBlock'),
     # body
+    ('int testing = 0;\n'),
     # main
 
 
