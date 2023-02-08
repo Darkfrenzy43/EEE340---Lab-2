@@ -90,7 +90,7 @@ class Throbac2CTranslator(ThrobacListener):
 
 
     def exitMain(self, ctx: ThrobacParser.MainContext):
-       print("\nexitMain")
+        self.c_translation[ctx] = f'{self.c_translation[ctx.body()]}'
 
     def exitBody(self, ctx: ThrobacParser.BodyContext):
        print("\nexitBody")
