@@ -179,8 +179,8 @@ TEST_CASES = [
 
     # funcdef <-- todo last
     ('void countdown(int start, char* message) {\n\tintcurrent = 0;\n\tcurrent = start;\n\t while (current > 0) {\n\t\t current = displayanddecrement(current);\n\t}\n\tprintf("%s", __throbac_cat(message, "\n"));\n}',
-     'APUD start: NUMERUS, message : LOCUTIO DEFINITIO countdown > current : NUMERUS MUTABILIS current start VALORUM current SUPRA .NIL. DUM > current APUD current VOCO displayanddecrement VALORUM < message IUNGO ^+^ LOCUTIO.IMPRIMO <'
-     'funcdef')
+     'APUD start: NUMERUS, message : LOCUTIO DEFINITIO countdown > current : NUMERUS MUTABILIS current start VALORUM current SUPRA .NIL. DUM > current APUD current VOCO displayanddecrement VALORUM < message IUNGO ^+^ LOCUTIO.IMPRIMO <',
+     'funcDef')
     # script
 ]
 
