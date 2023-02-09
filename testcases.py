@@ -181,11 +181,9 @@ TEST_CASES = [
     # ('int main() {\n\treturn 0;\n}', '', 'main'),
 
     # funcdef
-    ('void countdown(int start, char* message) {\n\treturn count;\n}',
+    ('void countdown(int start, char* message) {\n\treturn count;\n}\n',
      'APUD start : NUMERUS, message : LOCUTIO DEFINITIO countdown > count REDEO <', 'funcDef'),
-
-    # funcdef <-- todo last
-    ('void countdown(int start, char* message) {\n\tint current = 0;\n\tcurrent = start;\n\twhile (current > 0) {\n\t\tcurrent = displayanddecrement(current);\n\t}\n\tprintf("%s", __throbac_cat(message, "\\n"));\n}',
+    ('void countdown(int start, char* message) {\n\tint current = 0;\n\tcurrent = start;\n\twhile (current > 0) {\n\t\tcurrent = displayanddecrement(current);\n\t}\n\tprintf("%s", __throbac_cat(message, "\\n"));\n}\n',
      'APUD start: NUMERUS, message : LOCUTIO DEFINITIO countdown > current : NUMERUS MUTABILIS current start VALORUM current SUPRA .NIL. DUM > current APUD current VOCO displayanddecrement VALORUM < message IUNGO ^+^ LOCUTIO.IMPRIMO <',
      'funcDef'),
 
