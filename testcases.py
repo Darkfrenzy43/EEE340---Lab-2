@@ -190,7 +190,7 @@ TEST_CASES = [
      'funcDef'),
 
     # script
-    ('void testfunc(int thing) {\n\treturn thing + 35;\n}\nint main() {\n\tint someint = 0;\n\tif (20 < 40) {\n\t\tsomeint = 20;\n\treturn 0;\n\t}\n}',
+    ('void testfunc(int thing) {\n\treturn thing + 35;\n}\nint main() {\n\tint someint = 0;\n\tif (20 < 40) {\n\t\tsomeint = 20;\n\t}\n\treturn 0;\n}',
      'APUD thing : NUMERUS DEFINITIO testfunc > thing ADDO .III.V. REDEO < someint : NUMERUS MUTABILIS .II.NIL. INFRA .IV.NIL. SI > someint .II.NIL. VALORUM <',
      'script'),
 ]
