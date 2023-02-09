@@ -57,11 +57,9 @@ class Throbac2CTranslator(ThrobacListener):
 
 
     def exitScript(self, ctx: ThrobacParser.ScriptContext):
-        # TODO need to test
         funcDefList = [self.c_translation[this_dec] for this_dec in ctx.funcDef()]
         self.c_translation[ctx] = '\n'.join(funcDefList)
         self.c_translation[ctx] += f'\n{self.c_translation[ctx.main()]}'
-        print(self.c_translation[ctx])
 
 
     def exitFuncDef(self, ctx: ThrobacParser.FuncDefContext):
