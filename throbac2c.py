@@ -71,7 +71,6 @@ class Throbac2CTranslator(ThrobacListener):
 
         funcDef = '\n'.join(funcDefList)
         self.c_translation[ctx] += f'\n{self.c_translation[ctx.main()]}\n{funcDef}'
-        print(self.c_translation[ctx])
 
 
     def exitFuncDef(self, ctx: ThrobacParser.FuncDefContext):
