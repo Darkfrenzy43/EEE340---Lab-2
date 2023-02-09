@@ -81,7 +81,10 @@ class Throbac2CTranslator(ThrobacListener):
 
         # return for TYPE could be none
         if ctx.TYPE() != None:
-            this_return = ctx.TYPE().getText();
+            this_type = ctx.TYPE().getText();
+            this_return = ('int' if this_type == "NUMERUS" else
+                    'char*' if this_type == "LOCUTIO"
+                        else 'bool');
         else:
             this_return = "void";
 
@@ -117,7 +120,6 @@ class Throbac2CTranslator(ThrobacListener):
         if this_vblock != '' and this_block != '':
             newLineStr = '\n';
 
-
         self.c_translation[ctx] = f'{this_vblock}{newLineStr}{this_block}';
 
 
@@ -125,7 +127,7 @@ class Throbac2CTranslator(ThrobacListener):
 
         # Finding initial assignment value
         this_type = ctx.nameDef().TYPE().getText();
-        ass_str = ("= 0" if this_type == "NUMERUS" else
+        init_str = ("= 0" if this_type == "NUMERUS" else
                    "= NULL" if this_type == "LOCUTIO" else
                    "= false")
 
@@ -133,7 +135,7 @@ class Throbac2CTranslator(ThrobacListener):
         this_nameDef = self.c_translation[ctx.nameDef()];
 
         # Setting translation
-        self.c_translation[ctx] = f'{this_nameDef} {ass_str};';
+        self.c_translation[ctx] = f'{this_nameDef} {init_str};';
 
 
     def exitNameDef(self, ctx: ThrobacParser.NameDefContext):
@@ -181,13 +183,13 @@ class Throbac2CTranslator(ThrobacListener):
 
     def exitIf(self, ctx: ThrobacParser.IfContext):
         expr = self.c_translation[ctx.expr()]
-        block1 = self.c_translation[ctx.block(0)]
+        block1 = "\n\t".join(self.c_translation[ctx.block(0)].splitlines());
 
-        self.c_translation[ctx] = f'if ({expr}) {{\n{block1}\n}}'
+        self.c_translation[ctx] = f'if ({expr}) {{\n\t{block1}\n}}'
         # If there is an else statement
-        if ctx.block(1) != None:
-            block2 = self.c_translation[ctx.block(1)]
-            self.c_translation[ctx] = f'{self.c_translation[ctx]} else {{\n{block2}\n}}'
+        if ctx.block(1) is not None:
+            block2 = "\n\t".join(self.c_translation[ctx.block(1)].splitlines());
+            self.c_translation[ctx] = f'{self.c_translation[ctx]} else {{\n\t{block2}\n}}'
 
 
     def exitPrintNumber(self, ctx: ThrobacParser.PrintNumberContext):
