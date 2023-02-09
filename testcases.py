@@ -54,7 +54,8 @@ TEST_CASES = [
     ('""', '^^', 'expr'),
     (r'"YO\nYOYO\n\n"', '^YO+YOYO++^', 'expr'),  # Note the use of raw string to permit \n
     (r'"\n"', '^+^', 'expr'),
-                                                 # alternative would have been '"YO\\nYOYO\\n\\n"'
+    # alternative would have been '"YO\\nYOYO\\n\\n"'
+
     # booleans
     ('true', 'VERUM', 'expr'),
     ('false', 'FALSUM', 'expr'),
@@ -74,7 +75,8 @@ TEST_CASES = [
 
     # concatenation
     ('__throbac_cat("HELLO.WORLD", "ISHERE")', '^HELLO.WORLD^ IUNGO ^ISHERE^', 'expr'),
-    ('__throbac_cat(__throbac_cat("WHYARE", "YOU"), "SCREAMING.\\nSTOP.")', '^WHYARE^ IUNGO ^YOU^ IUNGO ^SCREAMING.+STOP.^', 'expr'),
+    ('__throbac_cat(__throbac_cat("WHYARE", "YOU"), "SCREAMING.\\nSTOP.")',
+     '^WHYARE^ IUNGO ^YOU^ IUNGO ^SCREAMING.+STOP.^', 'expr'),
     (r'__throbac_cat(message, "\n")', 'message IUNGO ^+^ ', 'expr'),
     ('__throbac_cat("HELLO", "WORLD")', '^HELLO^ IUNGO ^WORLD^', 'expr'),
 
@@ -107,7 +109,8 @@ TEST_CASES = [
     ('countdown(10, announce)', 'APUD .I.NIL., announce VOCO countdown', 'funcCall'),
 
     # function call expression
-    ('outerfunc(countdown(10, announce)) + 1', 'APUD APUD .I.NIL., announce VOCO countdown VOCO outerfunc ADDO .I.', 'expr'),
+    ('outerfunc(countdown(10, announce)) + 1',
+     'APUD APUD .I.NIL., announce VOCO countdown VOCO outerfunc ADDO .I.', 'expr'),
 
     # function call statement
     ('result = countdown(10, announce);', 'result APUD .I.NIL., announce VOCO countdown VALORUM', 'statement'),
@@ -179,23 +182,29 @@ TEST_CASES = [
     ('int testint = 0;\ntestint = 30;\nreturn;', 'testint : NUMERUS MUTABILIS testint .III.NIL. VALORUM REDEO', 'body'),
 
     # main
-    ('int main() {\n\tint testint = 0;\n\ttestint = 30;\n\treturn;\n}', 'testint : NUMERUS MUTABILIS testint .III.NIL. VALORUM REDEO', 'main'),
-    ('int main() {\n\tint testint = 0;\n\ttestint = 30;\n\treturn 0;\n}', 'testint : NUMERUS MUTABILIS testint .III.NIL. VALORUM', 'main'),
-    # ('int main() {\n\treturn 0;\n}', '', 'main'),
+    ('int main() {\n\tint testint = 0;\n\ttestint = 30;\n\treturn;\n}',
+     'testint : NUMERUS MUTABILIS testint .III.NIL. VALORUM REDEO', 'main'),
+    ('int main() {\n\tint testint = 0;\n\ttestint = 30;\n\treturn 0;\n}',
+     'testint : NUMERUS MUTABILIS testint .III.NIL. VALORUM', 'main'),
 
     # funcdef
     ('void countdown(int start, char* message) {\n\treturn count;\n}',
      'APUD start : NUMERUS, message : LOCUTIO DEFINITIO countdown > count REDEO <', 'funcDef'),
 
     # funcdef <-- todo last
-    ('void countdown(int start, char* message) {\n\tint current = 0;\n\tcurrent = start;\n\twhile (current > 0) {\n\t\tcurrent = displayanddecrement(current);\n\t}\n\tprintf("%s", __throbac_cat(message, "\\n"));\n}',
-     'APUD start: NUMERUS, message : LOCUTIO DEFINITIO countdown > current : NUMERUS MUTABILIS current start VALORUM current SUPRA .NIL. DUM > current APUD current VOCO displayanddecrement VALORUM < message IUNGO ^+^ LOCUTIO.IMPRIMO <',
-     'funcDef'),
+    (('void countdown(int start, char* message) {\n\tint current = 0;\n\tcurrent = start;'
+      '\n\twhile (current > 0) {\n\t\tcurrent = displayanddecrement(current);\n\t}'
+      '\n\tprintf("%s", __throbac_cat(message, "\\n"));\n}'),
+     ('APUD start: NUMERUS, message : LOCUTIO DEFINITIO countdown > current : NUMERUS MUTABILIS current start VALORUM '
+      'current SUPRA .NIL. DUM > current APUD current VOCO displayanddecrement VALORUM < '
+      'message IUNGO ^+^ LOCUTIO.IMPRIMO <'), 'funcDef'),
 
     # script
-    ('#include <stdio.h>\n#include <stdbool.h>\n#include "throbac.h"\n\nvoid testfunc(int thing);\nint main() {\n\tint someint = 0;\n\tif (20 < 40) {\n\t\tsomeint = 20;\n\t}\n\treturn 0;\n}\nvoid testfunc(int thing) {\n\treturn thing + 35;\n}',
-     'APUD thing : NUMERUS DEFINITIO testfunc > thing ADDO .III.V. REDEO < someint : NUMERUS MUTABILIS .II.NIL. INFRA .IV.NIL. SI > someint .II.NIL. VALORUM <',
-     'script'),
+    (('#include <stdio.h>\n#include <stdbool.h>\n#include "throbac.h"\n\nvoid testfunc(int thing);\n'
+      'int main() {\n\tint someint = 0;\n\tif (20 < 40) {\n\t\tsomeint = 20;\n\t}\n\treturn 0;\n}\nvoid '
+      'testfunc(int thing) {\n\treturn thing + 35;\n}'),
+     ('APUD thing : NUMERUS DEFINITIO testfunc > thing ADDO .III.V. REDEO < someint : NUMERUS MUTABILIS '
+      '.II.NIL. INFRA .IV.NIL. SI > someint .II.NIL. VALORUM <'), 'script'),
 ]
 
 
