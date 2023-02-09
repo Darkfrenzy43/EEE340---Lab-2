@@ -58,8 +58,20 @@ class Throbac2CTranslator(ThrobacListener):
 
     def exitScript(self, ctx: ThrobacParser.ScriptContext):
         funcDefList = [self.c_translation[this_dec] for this_dec in ctx.funcDef()]
-        self.c_translation[ctx] = '\n'.join(funcDefList)
-        self.c_translation[ctx] += f'\n{self.c_translation[ctx.main()]}'
+        self.c_translation[ctx] = '#include <stdio.h>\n#include <stdbool.h>\n#include "throbac.h"\n'
+
+        # makes the function declarations before the main statement
+        for dec in funcDefList:
+            sepreatedLines = dec.splitlines()
+            funcDec = sepreatedLines[0]
+            # removes the " {" and replaces it with a ";"
+            funcDec = funcDec[:-2] + ";"
+            self.c_translation[ctx] += f'\n{funcDec}'
+            #print(f'{self.c_translation[ctx]}\n\nnew\n\n')
+
+        funcDef = '\n'.join(funcDefList)
+        self.c_translation[ctx] += f'\n{self.c_translation[ctx.main()]}\n{funcDef}'
+        print(self.c_translation[ctx])
 
 
     def exitFuncDef(self, ctx: ThrobacParser.FuncDefContext):
