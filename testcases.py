@@ -69,6 +69,8 @@ TEST_CASES = [
     ('(true)', '(VERUM)', 'expr'),
     ('(false)', '(FALSUM)', 'expr'),
     ('(6 * 8)', '(.VI. CONGERO .VIII.)', 'expr'),
+    ('("HELLOWORLD")', '(^HELLOWORLD^)', 'expr'),
+    ('(6 < 8 + 3)', '(.VI. INFRA .VIII. ADDO .III.)', 'expr'),
 
     # concatenation
     ('__throbac_cat("HELLO.WORLD", "ISHERE")', '^HELLO.WORLD^ IUNGO ^ISHERE^', 'expr'),
