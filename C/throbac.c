@@ -3,7 +3,7 @@ C implementations of the Throbac string concatenation function
 `__throbac_cat` (provided for you) and the two Throbac built-in
 functions `stringlength` and `substring`
 
-Author: TODO: your names here
+Author: OCdt Aaron Brown and OCdt Liethan Velasco
 
 Version: 2022-01-23
 */
