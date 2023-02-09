@@ -56,19 +56,23 @@ class Throbac2CTranslator(ThrobacListener):
 
     def exitScript(self, ctx: ThrobacParser.ScriptContext):
         funcDefList = [self.c_translation[this_dec] for this_dec in ctx.funcDef()]
-        # includes the libraries required to run a throbac file
-        self.c_translation[ctx] = '#include <stdio.h>\n#include <stdbool.h>\n#include "throbac.h"\n'
+        #checks if file is empty first
+        if len(self.c_translation[ctx.main()]) > 0:
+            # includes the libraries required to run a throbac file
+            self.c_translation[ctx] = '#include <stdio.h>\n#include <stdbool.h>\n#include "throbac.h"\n'
 
-        # makes the function declarations before the main statement
-        for dec in funcDefList:
-            sepreatedLines = dec.splitlines()
-            funcDec = sepreatedLines[0]
-            # removes the " {" and replaces it with a ";"
-            funcDec = funcDec[:-2] + ";"
-            self.c_translation[ctx] += f'\n{funcDec}'
+            # makes the function declarations before the main statement
+            for dec in funcDefList:
+                sepreatedLines = dec.splitlines()
+                funcDec = sepreatedLines[0]
+                # removes the " {" and replaces it with a ";"
+                funcDec = funcDec[:-2] + ";"
+                self.c_translation[ctx] += f'\n{funcDec}'
 
-        funcDef = '\n'.join(funcDefList)
-        self.c_translation[ctx] += f'\n{self.c_translation[ctx.main()]}\n{funcDef}'
+            funcDef = '\n'.join(funcDefList)
+            self.c_translation[ctx] += f'\n{self.c_translation[ctx.main()]}\n{funcDef}'
+        else:
+            self.c_translation[ctx] = ""
 
     def exitFuncDef(self, ctx: ThrobacParser.FuncDefContext):
         # Unpack the namedefs
@@ -101,14 +105,17 @@ class Throbac2CTranslator(ThrobacListener):
         separatedLines = self.c_translation[ctx.body()].splitlines()
 
         # if there is already a return statement don't create a second one
-        if "return" in separatedLines[-1]:
-            returnstr = ""
-        else:
-            returnstr = "\treturn 0;\n"
+        if len(separatedLines) > 0:
+            if "return" in separatedLines[-1]:
+                returnstr = ""
+            else:
+                returnstr = "\treturn 0;\n"
 
-        # recreate a single string that has proper tabulations
-        body = "\n\t".join(separatedLines)
-        self.c_translation[ctx] = f'int main() {{\n\t{body}\n{returnstr}}}'
+            # recreate a single string that has proper tabulations
+            body = "\n\t".join(separatedLines)
+            self.c_translation[ctx] = f'int main() {{\n\t{body}\n{returnstr}}}'
+        else:
+            self.c_translation[ctx] = ""
 
     def exitBody(self, ctx: ThrobacParser.BodyContext):
         this_block = self.c_translation[ctx.block()]

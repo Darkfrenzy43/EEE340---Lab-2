@@ -92,7 +92,6 @@ TEST_CASES = [
     # add and subtract
     ('somevar + b', 'somevar ADDO b', 'expr'),
     ('2 + 16', '.II. ADDO .I.VI.', 'expr'),
-    # --> add more here
 
     # multiply and divide
     ('8 * 13', '.VIII. CONGERO .I.III.', 'expr'),
@@ -112,15 +111,16 @@ TEST_CASES = [
     # function call expression
     ('outerfunc(countdown(10, announce)) + 1',
      'APUD APUD .I.NIL., announce VOCO countdown VOCO outerfunc ADDO .I.', 'expr'),
+    ('cantstopthefunc(77 + 192) > 3', 'APUD .VII.VII. ADDO .I.IX.II. VOCO cantstopthefunc SUPRA .III.', 'expr'),
 
     # function call statement
-    ('result = countdown(10, announce);', 'result APUD .I.NIL., announce VOCO countdown VALORUM', 'statement'),
+    ('countdown(10, announce);', 'APUD .I.NIL., announce VOCO countdown', 'statement'),
+    ('testfunc(true);', 'APUD VERUM VOCO testfunc', 'statement'),
 
     # assignment
     ('current = start;', 'current start VALORUM', 'statement'),
     ('x = 32;', 'x .III.II. VALORUM', 'statement'),
     ('string = "HELLO";', 'string ^HELLO^ VALORUM', 'statement'),
-
     ('current = start;', 'current start VALORUM', 'statement'),
     ('x = 32;', 'x .III.II. VALORUM', 'statement'),
     ('string = "HELLO";', 'string ^HELLO^ VALORUM', 'statement'),
@@ -164,6 +164,7 @@ TEST_CASES = [
      'count IDEM .III. SI >\n^+GET.READY+^ LOCUTIO.IMPRIMO\n< ALUID >^+^ LOCUTIO.IMPRIMO\n<', 'statement'),
     ('if (test >= x) {\n\treturn test;\n} else {\n\treturn x;\n}',
      'test SUPRA.IDEM x SI >test REDEO< ALUID >x REDEO<', 'statement'),
+    ('if (false) {\n\tless = 10 + 10;\n}', 'FALSUM SI >less .I.NIL. ADDO .I.NIL. VALORUM<', 'statement'),
 
     # nameDef
     ('int anid', 'anid : NUMERUS', 'nameDef'),
@@ -181,18 +182,18 @@ TEST_CASES = [
 
     # body
     ('int testint = 0;\ntestint = 30;\nreturn;', 'testint : NUMERUS MUTABILIS testint .III.NIL. VALORUM REDEO', 'body'),
+    ('', '', 'body'),
 
     # main
     ('int main() {\n\tint testint = 0;\n\ttestint = 30;\n\treturn;\n}',
      'testint : NUMERUS MUTABILIS testint .III.NIL. VALORUM REDEO', 'main'),
     ('int main() {\n\tint testint = 0;\n\ttestint = 30;\n\treturn 0;\n}',
      'testint : NUMERUS MUTABILIS testint .III.NIL. VALORUM', 'main'),
+    ('', '', 'main'),
 
     # funcdef
     ('void countdown(int start, char* message) {\n\treturn count;\n}',
      'APUD start : NUMERUS, message : LOCUTIO DEFINITIO countdown > count REDEO <', 'funcDef'),
-
-    # funcdef
     (('void countdown(int start, char* message) {\n\tint current = 0;\n\tcurrent = start;'
       '\n\twhile (current > 0) {\n\t\tcurrent = displayanddecrement(current);\n\t}'
       '\n\tprintf("%s", __throbac_cat(message, "\\n"));\n}'),
@@ -208,6 +209,7 @@ TEST_CASES = [
       'testfunc(int thing) {\n\treturn thing + 35;\n}'),
      ('APUD thing : NUMERUS DEFINITIO testfunc > thing ADDO .III.V. REDEO < someint : NUMERUS MUTABILIS '
       '.II.NIL. INFRA .IV.NIL. SI > someint .II.NIL. VALORUM <'), 'script'),
+    ('', '', 'script'),
 ]
 
 
