@@ -87,7 +87,6 @@ class Throbac2CTranslator(ThrobacListener):
 
         # Setting translation
         self.c_translation[ctx] = f'{this_return} {this_id}({nameDef_str}) {{\n{this_body}\n}}';
-        print(self.c_translation[ctx])
 
 
     def exitMain(self, ctx: ThrobacParser.MainContext):
