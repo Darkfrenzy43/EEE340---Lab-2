@@ -107,6 +107,7 @@ TEST_CASES = [
 
     # function call
     ('countdown(10, announce)', 'APUD .I.NIL., announce VOCO countdown', 'funcCall'),
+    ('substring("HELLO.WORLD\\n", 0, 5)', 'APUD ^HELLO.WORLD+^, .NIL., .V. VOCO substring', 'funcCall'),
 
     # function call expression
     ('outerfunc(countdown(10, announce)) + 1',
@@ -198,6 +199,8 @@ TEST_CASES = [
      ('APUD start: NUMERUS, message : LOCUTIO DEFINITIO countdown > current : NUMERUS MUTABILIS current start VALORUM '
       'current SUPRA .NIL. DUM > current APUD current VOCO displayanddecrement VALORUM < '
       'message IUNGO ^+^ LOCUTIO.IMPRIMO <'), 'funcDef'),
+    ('int stringlength(char* str) {\n\treturn 3;\n}',
+     'APUD str : LOCUTIO DEFINITIO stringlength PRAEBET NUMERUS > .III. REDEO <', 'funcDef'),
 
     # script
     (('#include <stdio.h>\n#include <stdbool.h>\n#include "throbac.h"\n\nvoid testfunc(int thing);\n'
