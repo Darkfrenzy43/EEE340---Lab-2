@@ -3,3 +3,4 @@ venv
 .idea
 __pycache__
 notes.md
+generated_c

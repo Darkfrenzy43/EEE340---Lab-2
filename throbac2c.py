@@ -77,7 +77,8 @@ class Throbac2CTranslator(ThrobacListener):
         this_id = ctx.ID().getText();
 
         # Get the body translation
-        this_body = self.c_translation[ctx.body()];
+        this_body = "\n\t".join(self.c_translation[ctx.body()].splitlines());
+
 
         # return for TYPE could be none
         if ctx.TYPE() != None:
@@ -86,7 +87,10 @@ class Throbac2CTranslator(ThrobacListener):
             this_return = "void";
 
         # Setting translation
-        self.c_translation[ctx] = f'{this_return} {this_id}({nameDef_str}) > {this_body} <';
+        self.c_translation[ctx] = f'{this_return} {this_id}({nameDef_str}) ' + \
+                                  f'{{{this_body}\n}}';
+
+        # int main(){{\n\t{body}\n {returnstr}}}'
 
 
     def exitMain(self, ctx: ThrobacParser.MainContext):
@@ -103,6 +107,7 @@ class Throbac2CTranslator(ThrobacListener):
         # recreate a single string that has proper tabulations
         body = "\n\t".join(sepratedLines)
         self.c_translation[ctx] = f'int main() {{\n\t{body}\n{returnstr}}}'
+
 
     def exitBody(self, ctx: ThrobacParser.BodyContext):
         # TODO need to test
