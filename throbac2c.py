@@ -14,7 +14,6 @@ Version: February 9 2023.
 """
 
 
-
 from throbac.ThrobacListener import ThrobacListener
 from throbac.ThrobacParser import ThrobacParser
 
@@ -78,7 +77,7 @@ class Throbac2CTranslator(ThrobacListener):
         this_id = ctx.ID().getText();
 
         # Get the body translation
-        this_body = self.c_translation[ctx.body()];
+        this_body = "\n\t".join(self.c_translation[ctx.body()].splitlines());
 
         # return for TYPE could be none
         if ctx.TYPE() != None:
@@ -87,8 +86,10 @@ class Throbac2CTranslator(ThrobacListener):
             this_return = "void";
 
         # Setting translation
-        self.c_translation[ctx] = f'{this_return} {this_id}({nameDef_str}) {{\n{this_body}\n}}';
 
+        # int main(){{\n\t{body}\n {returnstr}}}'
+
+        self.c_translation[ctx] = f'{this_return} {this_id}({nameDef_str}) {{\n\t{this_body}\n}}';
 
     def exitMain(self, ctx: ThrobacParser.MainContext):
         # separated the strings lines in order to add tabulations
@@ -105,15 +106,19 @@ class Throbac2CTranslator(ThrobacListener):
         body = "\n\t".join(sepratedLines)
         self.c_translation[ctx] = f'int main() {{\n\t{body}\n{returnstr}}}'
 
+
+    """ Sorry for the inelegant solution sir! Ran out of time :). """
     def exitBody(self, ctx: ThrobacParser.BodyContext):
-        # TODO need to test
 
-        # Unpack varblock and block
-        this_vblock = self.c_translation[ctx.varBlock()];
         this_block = self.c_translation[ctx.block()];
+        this_vblock = self.c_translation[ctx.varBlock()];
+        newLineStr = '';
 
-        # Set translation
-        self.c_translation[ctx] = f'{this_vblock}\n{this_block}';
+        if this_vblock != '' and this_block != '':
+            newLineStr = '\n';
+
+
+        self.c_translation[ctx] = f'{this_vblock}{newLineStr}{this_block}';
 
 
     def exitVarDec(self, ctx: ThrobacParser.VarDecContext):
@@ -167,10 +172,11 @@ class Throbac2CTranslator(ThrobacListener):
 
     def exitWhile(self, ctx: ThrobacParser.WhileContext):
         expr = self.c_translation[ctx.expr()]
-        block = self.c_translation[ctx.block()]
+
+        block = "\n\t".join(self.c_translation[ctx.block()].splitlines());
 
         # using double { escapes. print('{{') = '{'
-        self.c_translation[ctx] = f'while ({expr}) {{\n{block}\n}}'
+        self.c_translation[ctx] = f'while ({expr}) {{\n\t{block}\n}}'
 
 
     def exitIf(self, ctx: ThrobacParser.IfContext):
