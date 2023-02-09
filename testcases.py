@@ -117,6 +117,7 @@ TEST_CASES = [
     # function call
     ('countdown(10, announce)', 'APUD .I.NIL., announce VOCO countdown', 'funcCall'),
     ('substring("HELLO.WORLD\\n", 0, 5)', 'APUD ^HELLO.WORLD+^, .NIL., .V. VOCO substring', 'funcCall'),
+    ('outer(inner(first, second), fourth + fifth)', 'APUD APUD first, second VOCO inner, fourth ADDO fifth VOCO outer', 'funcCall'),
 
 
     # function call expression
