@@ -62,6 +62,7 @@ TEST_CASES = [
     # variables
     ('test', 'test', 'expr'),
     ('somevar', 'somevar', 'expr'),
+    ('abcdefghijklmnopqrstuvwxyz', 'abcdefghijklmnopqrstuvwxyz', 'expr'),
 
     # parentheses
     ('(6)', '(.VI.)', 'expr'),
