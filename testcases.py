@@ -153,6 +153,7 @@ TEST_CASES = [
     # block
     ('printf("%s", "HELLOWORLD");\nreturn 2;', '^HELLOWORLD^ LOCUTIO.IMPRIMO .II. REDEO', 'block'),
     ('var = "HELLO";\nreturn 77 + 6;', 'var ^HELLO^ VALORUM .VII.VII. ADDO .VI. REDEO', 'block'),
+    ('', '', 'block'),
 
     # while
     ('while (current > 0) {\n\tcurrent = displayanddecrement(current);\n}',
@@ -179,6 +180,7 @@ TEST_CASES = [
 
     # varBlock
     ('int someint = 0;\nchar* somestr = NULL;', 'someint : NUMERUS MUTABILIS somestr : LOCUTIO MUTABILIS', 'varBlock'),
+    ('', '', 'varBlock'),
 
     # body
     ('int testint = 0;\ntestint = 30;\nreturn;', 'testint : NUMERUS MUTABILIS testint .III.NIL. VALORUM REDEO', 'body'),
