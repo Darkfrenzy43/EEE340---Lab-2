@@ -70,10 +70,10 @@ TEST_CASES = [
 
 
     # parentheses
-    ('(6)', '(.VI.)', 'expr'),
-    ('(true)', '(VERUM)', 'expr'),
-    ('(false)', '(FALSUM)', 'expr'),
-    ('(6 * 8)', '(.VI. CONGERO .VIII.)', 'expr'),
+    ('(6)', '(   .VI.      )', 'expr'),
+    ('(true)', '(  VERUM  )', 'expr'),
+    ('(false)', '(FALSUM )', 'expr'),
+    ('(6 * 8)', '(.VI.     CONGERO .VIII.)', 'expr'),
     ('("HELLOWORLD")', '(^HELLOWORLD^)', 'expr'),
     ('(6 < 8 + 3)', '(.VI. INFRA .VIII. ADDO .III.)', 'expr'),
 
