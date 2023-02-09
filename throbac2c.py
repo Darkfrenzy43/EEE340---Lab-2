@@ -86,7 +86,7 @@ class Throbac2CTranslator(ThrobacListener):
             this_return = "void";
 
         # Setting translation
-        self.c_translation[ctx] = f'{this_return} {this_id}({nameDef_str}) {{\n{this_body} }}';
+        self.c_translation[ctx] = f'{this_return} {this_id}({nameDef_str}) {{\n{this_body}\n}}';
         print(self.c_translation[ctx])
 
 
