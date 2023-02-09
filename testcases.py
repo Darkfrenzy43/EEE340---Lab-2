@@ -148,9 +148,9 @@ TEST_CASES = [
     ('var = "HELLO";\nreturn 77 + 6;', 'var ^HELLO^ VALORUM .VII.VII. ADDO .VI. REDEO', 'block'),
 
     # while
-    ('while (current > 0) {\ncurrent = displayanddecrement(current);\n}',
+    ('while (current > 0) {\n\tcurrent = displayanddecrement(current);\n}',
      'current SUPRA .NIL. DUM >\ncurrent APUD current VOCO displayanddecrement VALORUM\n<', 'statement'),
-    ('while (x > 10) {\nx = x + 2;\n}', 'x SUPRA .I.NIL. DUM >x x ADDO .II. VALORUM<', 'statement'),
+    ('while (x > 10) {\n\tx = x + 2;\n}', 'x SUPRA .I.NIL. DUM >x x ADDO .II. VALORUM<', 'statement'),
 
     # if
     ('if (count == 3) {\nprintf("%s", "\\nGET.READY\\n");\n} else {\nprintf("%s", "\\n");\n}',
@@ -178,7 +178,7 @@ TEST_CASES = [
     # main
     ('int main() {\n\tint testint = 0;\n\ttestint = 30;\n\treturn;\n}', 'testint : NUMERUS MUTABILIS testint .III.NIL. VALORUM REDEO', 'main'),
     ('int main() {\n\tint testint = 0;\n\ttestint = 30;\n\treturn 0;\n}', 'testint : NUMERUS MUTABILIS testint .III.NIL. VALORUM', 'main'),
-
+    # ('int main() {\n\treturn 0;\n}', '', 'main'),
 
     # funcdef
     ('void countdown(int start, char* message) {\n\treturn count;\n}',
@@ -187,7 +187,7 @@ TEST_CASES = [
 
 
     # funcdef <-- todo last
-    ('void countdown(int start, char* message) {\n\tint current = 0;\n\tcurrent = start;\n\t while (current > 0) {\n\t\t current = displayanddecrement(current);\n\t}\n\tprintf("%s", __throbac_cat(message, "\\n"));\n}',
+    ('void countdown(int start, char* message) {\n\tint current = 0;\n\tcurrent = start;\n\twhile (current > 0) {\n\t\tcurrent = displayanddecrement(current);\n\t}\n\tprintf("%s", __throbac_cat(message, "\\n"));\n}',
      'APUD start: NUMERUS, message : LOCUTIO DEFINITIO countdown > current : NUMERUS MUTABILIS current start VALORUM current SUPRA .NIL. DUM > current APUD current VOCO displayanddecrement VALORUM < message IUNGO ^+^ LOCUTIO.IMPRIMO <',
      'funcDef')
 
