@@ -1,4 +1,4 @@
-"""
+"""c_translation
 When used as a parse tree Listener on a valid Throbac parse tree, creates a
 translation to C for each node and and stores this in the `self.c_translation`
 dictionary. The complete program translation will be for the root of the
@@ -230,9 +230,7 @@ class Throbac2CTranslator(ThrobacListener):
         if this_op == 'NI':
 
             # Setting translation as needed
-            self.c_translation[ctx] = ("true"
-                                       if expr_text == "false"
-                                       else "false")
+            self.c_translation[ctx] = f"!({expr_text})"
 
         # Otherwise, do following if op is 'NEGANS':
         elif this_op == 'NEGANS':

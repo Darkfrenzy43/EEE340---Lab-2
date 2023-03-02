@@ -98,9 +98,9 @@ TEST_CASES = [
     ('5 / 9', '.V. PARTIO .IX.', 'expr'),
 
     # negation
-    ('true', 'NI FALSUM', 'expr'),
-    ('false', 'NI NI NI VERUM', 'expr'),
-    ('true', 'NI NI NI NI NI FALSUM', 'expr'),
+    ('!(false)', 'NI FALSUM', 'expr'),
+    ('!(!(!(true)))', 'NI NI NI VERUM', 'expr'),
+    ('!(!(!(!(!(false)))))', 'NI NI NI NI NI FALSUM', 'expr'),
     ('-7', 'NEGANS .NIL.NIL.VII.', 'expr'),
     ('7', 'NEGANS NEGANS .NIL.NIL.VII.', 'expr'),
 
@@ -147,8 +147,8 @@ TEST_CASES = [
 
     # print bool
     ('printf("%s", "true");', 'VERUM VERITAS.IMPRIMO', 'statement'),
-    ('printf("%s", "false");', 'NI VERUM VERITAS.IMPRIMO', 'statement'),
-    ('printf("%s", "false");', 'NI NI FALSUM VERITAS.IMPRIMO', 'statement'),
+    ('printf("%s", "!(true)");', 'NI VERUM VERITAS.IMPRIMO', 'statement'),
+    ('printf("%s", "!(!(false))");', 'NI NI FALSUM VERITAS.IMPRIMO', 'statement'),
 
     # block
     ('printf("%s", "HELLOWORLD");\nreturn 2;', '^HELLOWORLD^ LOCUTIO.IMPRIMO .II. REDEO', 'block'),
