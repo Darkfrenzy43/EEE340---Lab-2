@@ -83,11 +83,14 @@ class Throbac2CTranslator(ThrobacListener):
     def exitFuncDef(self, ctx: ThrobacParser.FuncDefContext):
 
         # Unpack the namedefs
-        if ctx.nameDef is not None:
-            nameDef_list = [self.c_translation[n] for n in ctx.nameDef()]
-            nameDef_str = ', '.join(nameDef_list)
-        else:
-            nameDef_str = ''
+        # This code isn't needed as first the ctx.nameDef should be ctx.nameDef()
+        # second it is accounting for a scenario that is already fixed by the join method
+        # when given an empty list the join function will return an empty string
+        #if ctx.nameDef is not None:
+        nameDef_list = [self.c_translation[n] for n in ctx.nameDef()]
+        nameDef_str = ', '.join(nameDef_list)
+        #else:
+            #nameDef_str = ''
 
         # Get ID token
         this_id = ctx.ID().getText()
@@ -227,7 +230,7 @@ class Throbac2CTranslator(ThrobacListener):
         this_expr = self.c_translation[ctx.expr()]
 
         # Setting translation
-        self.c_translation[ctx] = f'printf("%s", "{this_expr}");'
+        self.c_translation[ctx] = f'printf("%s", {this_expr} ? "true" : "false");'
 
 
     def exitReturn(self, ctx: ThrobacParser.ReturnContext):
