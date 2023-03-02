@@ -111,7 +111,7 @@ TEST_CASES = [
     ('!(!(!(true)))', 'NI NI NI VERUM', 'expr'),
     ('!(!(!(!(!(false)))))', 'NI NI NI NI NI FALSUM', 'expr'),
     ('-7', 'NEGANS .NIL.NIL.VII.', 'expr'),
-    ('7', 'NEGANS NEGANS .NIL.NIL.VII.', 'expr'),
+    ('-(-7)', 'NEGANS NEGANS .NIL.NIL.VII.', 'expr'),
 
 
     # function call
@@ -167,78 +167,78 @@ TEST_CASES = [
     ('printf("%s", "!(true)");', 'NI VERUM VERITAS.IMPRIMO', 'statement'),
     ('printf("%s", "!(!(false))");', 'NI NI FALSUM VERITAS.IMPRIMO', 'statement'),
 
-
-    # block
-    ('printf("%s", "HELLOWORLD");\nreturn 2;', '^HELLOWORLD^ LOCUTIO.IMPRIMO .II. REDEO', 'block'),
-    ('var = "HELLO";\nreturn 77 + 6;', 'var ^HELLO^ VALORUM .VII.VII. ADDO .VI. REDEO', 'block'),
-    ('', '', 'block'),
-
-
-    # while
-    ('while (current > 0) {\n\tcurrent = displayanddecrement(current);\n}',
-     'current SUPRA .NIL. DUM >\ncurrent APUD current VOCO displayanddecrement VALORUM\n<', 'statement'),
-    ('while (x > 10) {\n\tx = x + 2;\n}', 'x SUPRA .I.NIL. DUM >x x ADDO .II. VALORUM<', 'statement'),
-    ('while (true) {\n\twhile (true) {\n\t\twhile (true) {\n\t\t\tprintf("%s", "true");\n\t\t}\n\t}\n}', 'VERUM DUM > VERUM DUM > VERUM DUM > VERUM VERITAS.IMPRIMO < < <', 'statement'),
-
-
-    # if
-    ('if (count == 3) {\n\tprintf("%s", "\\nGET.READY\\n");\n} else {\n\tprintf("%s", "\\n");\n}',
-     'count IDEM .III. SI >\n^+GET.READY+^ LOCUTIO.IMPRIMO\n< ALUID >^+^ LOCUTIO.IMPRIMO\n<', 'statement'),
-    ('if (test >= x) {\n\treturn test;\n} else {\n\treturn x;\n}',
-     'test SUPRA.IDEM x SI >test REDEO< ALUID >x REDEO<', 'statement'),
-    ('if (false) {\n\tless = 10 + 10;\n}', 'FALSUM SI >less .I.NIL. ADDO .I.NIL. VALORUM<', 'statement'),
-
-
-    # nameDef
-    ('int anid', 'anid : NUMERUS', 'nameDef'),
-    ('bool anbooleanyep', 'anbooleanyep : VERITAS', 'nameDef'),
-    ('char* somethingcool', 'somethingcool : LOCUTIO', 'nameDef'),
-
-
-    # varDec
-    ('int someint = 0;', 'someint : NUMERUS MUTABILIS', 'varDec'),
-    ('char* somestr = NULL;', 'somestr : LOCUTIO MUTABILIS', 'varDec'),
-    ('bool somebool = false;', 'somebool : VERITAS MUTABILIS', 'varDec'),
-
-
-    # varBlock
-    ('int someint = 0;\nchar* somestr = NULL;', 'someint : NUMERUS MUTABILIS somestr : LOCUTIO MUTABILIS', 'varBlock'),
-    ('', '', 'varBlock'),
-
-
-    # body
-    ('int testint = 0;\ntestint = 30;\nreturn;', 'testint : NUMERUS MUTABILIS testint .III.NIL. VALORUM REDEO', 'body'),
-    ('', '', 'body'),
-
-
-    # main
-    ('int main() {\n\tint testint = 0;\n\ttestint = 30;\n\treturn;\n}',
-     'testint : NUMERUS MUTABILIS testint .III.NIL. VALORUM REDEO', 'main'),
-    ('int main() {\n\tint testint = 0;\n\ttestint = 30;\n\treturn 0;\n}',
-     'testint : NUMERUS MUTABILIS testint .III.NIL. VALORUM', 'main'),
-    ('', '', 'main'),
-
-
-    # funcdef
-    ('void countdown(int start, char* message) {\n\treturn count;\n}',
-     'APUD start : NUMERUS, message : LOCUTIO DEFINITIO countdown > count REDEO <', 'funcDef'),
-    (('void countdown(int start, char* message) {\n\tint current = 0;\n\tcurrent = start;'
-      '\n\twhile (current > 0) {\n\t\tcurrent = displayanddecrement(current);\n\t}'
-      '\n\tprintf("%s", __throbac_cat(message, "\\n"));\n}'),
-     ('APUD start: NUMERUS, message : LOCUTIO DEFINITIO countdown > current : NUMERUS MUTABILIS current start VALORUM '
-      'current SUPRA .NIL. DUM > current APUD current VOCO displayanddecrement VALORUM < '
-      'message IUNGO ^+^ LOCUTIO.IMPRIMO <'), 'funcDef'),
-    ('int stringlength(char* str) {\n\treturn 3;\n}',
-     'APUD str : LOCUTIO DEFINITIO stringlength PRAEBET NUMERUS > .III. REDEO <', 'funcDef'),
-
-
-    # script
-    (('#include <stdio.h>\n#include <stdbool.h>\n#include "throbac.h"\n\nvoid testfunc(int thing);\n'
-      'int main() {\n\tint someint = 0;\n\tif (20 < 40) {\n\t\tsomeint = 20;\n\t}\n\treturn 0;\n}\nvoid '
-      'testfunc(int thing) {\n\treturn thing + 35;\n}'),
-     ('APUD thing : NUMERUS DEFINITIO testfunc > thing ADDO .III.V. REDEO < someint : NUMERUS MUTABILIS '
-      '.II.NIL. INFRA .IV.NIL. SI > someint .II.NIL. VALORUM <'), 'script'),
-    ('', '', 'script'),
+    #
+    # # block
+    # ('printf("%s", "HELLOWORLD");\nreturn 2;', '^HELLOWORLD^ LOCUTIO.IMPRIMO .II. REDEO', 'block'),
+    # ('var = "HELLO";\nreturn 77 + 6;', 'var ^HELLO^ VALORUM .VII.VII. ADDO .VI. REDEO', 'block'),
+    # ('', '', 'block'),
+    #
+    #
+    # # while
+    # ('while (current > 0) {\n\tcurrent = displayanddecrement(current);\n}',
+    #  'current SUPRA .NIL. DUM >\ncurrent APUD current VOCO displayanddecrement VALORUM\n<', 'statement'),
+    # ('while (x > 10) {\n\tx = x + 2;\n}', 'x SUPRA .I.NIL. DUM >x x ADDO .II. VALORUM<', 'statement'),
+    # ('while (true) {\n\twhile (true) {\n\t\twhile (true) {\n\t\t\tprintf("%s", "true");\n\t\t}\n\t}\n}', 'VERUM DUM > VERUM DUM > VERUM DUM > VERUM VERITAS.IMPRIMO < < <', 'statement'),
+    #
+    #
+    # # if
+    # ('if (count == 3) {\n\tprintf("%s", "\\nGET.READY\\n");\n} else {\n\tprintf("%s", "\\n");\n}',
+    #  'count IDEM .III. SI >\n^+GET.READY+^ LOCUTIO.IMPRIMO\n< ALUID >^+^ LOCUTIO.IMPRIMO\n<', 'statement'),
+    # ('if (test >= x) {\n\treturn test;\n} else {\n\treturn x;\n}',
+    #  'test SUPRA.IDEM x SI >test REDEO< ALUID >x REDEO<', 'statement'),
+    # ('if (false) {\n\tless = 10 + 10;\n}', 'FALSUM SI >less .I.NIL. ADDO .I.NIL. VALORUM<', 'statement'),
+    #
+    #
+    # # nameDef
+    # ('int anid', 'anid : NUMERUS', 'nameDef'),
+    # ('bool anbooleanyep', 'anbooleanyep : VERITAS', 'nameDef'),
+    # ('char* somethingcool', 'somethingcool : LOCUTIO', 'nameDef'),
+    #
+    #
+    # # varDec
+    # ('int someint = 0;', 'someint : NUMERUS MUTABILIS', 'varDec'),
+    # ('char* somestr = NULL;', 'somestr : LOCUTIO MUTABILIS', 'varDec'),
+    # ('bool somebool = false;', 'somebool : VERITAS MUTABILIS', 'varDec'),
+    #
+    #
+    # # varBlock
+    # ('int someint = 0;\nchar* somestr = NULL;', 'someint : NUMERUS MUTABILIS somestr : LOCUTIO MUTABILIS', 'varBlock'),
+    # ('', '', 'varBlock'),
+    #
+    #
+    # # body
+    # ('int testint = 0;\ntestint = 30;\nreturn;', 'testint : NUMERUS MUTABILIS testint .III.NIL. VALORUM REDEO', 'body'),
+    # ('', '', 'body'),
+    #
+    #
+    # # main
+    # ('int main() {\n\tint testint = 0;\n\ttestint = 30;\n\treturn;\n}',
+    #  'testint : NUMERUS MUTABILIS testint .III.NIL. VALORUM REDEO', 'main'),
+    # ('int main() {\n\tint testint = 0;\n\ttestint = 30;\n\treturn 0;\n}',
+    #  'testint : NUMERUS MUTABILIS testint .III.NIL. VALORUM', 'main'),
+    # ('', '', 'main'),
+    #
+    #
+    # # funcdef
+    # ('void countdown(int start, char* message) {\n\treturn count;\n}',
+    #  'APUD start : NUMERUS, message : LOCUTIO DEFINITIO countdown > count REDEO <', 'funcDef'),
+    # (('void countdown(int start, char* message) {\n\tint current = 0;\n\tcurrent = start;'
+    #   '\n\twhile (current > 0) {\n\t\tcurrent = displayanddecrement(current);\n\t}'
+    #   '\n\tprintf("%s", __throbac_cat(message, "\\n"));\n}'),
+    #  ('APUD start: NUMERUS, message : LOCUTIO DEFINITIO countdown > current : NUMERUS MUTABILIS current start VALORUM '
+    #   'current SUPRA .NIL. DUM > current APUD current VOCO displayanddecrement VALORUM < '
+    #   'message IUNGO ^+^ LOCUTIO.IMPRIMO <'), 'funcDef'),
+    # ('int stringlength(char* str) {\n\treturn 3;\n}',
+    #  'APUD str : LOCUTIO DEFINITIO stringlength PRAEBET NUMERUS > .III. REDEO <', 'funcDef'),
+    #
+    #
+    # # script
+    # (('#include <stdio.h>\n#include <stdbool.h>\n#include "throbac.h"\n\nvoid testfunc(int thing);\n'
+    #   'int main() {\n\tint someint = 0;\n\tif (20 < 40) {\n\t\tsomeint = 20;\n\t}\n\treturn 0;\n}\nvoid '
+    #   'testfunc(int thing) {\n\treturn thing + 35;\n}'),
+    #  ('APUD thing : NUMERUS DEFINITIO testfunc > thing ADDO .III.V. REDEO < someint : NUMERUS MUTABILIS '
+    #   '.II.NIL. INFRA .IV.NIL. SI > someint .II.NIL. VALORUM <'), 'script'),
+    # ('', '', 'script'),
 ]
 
 

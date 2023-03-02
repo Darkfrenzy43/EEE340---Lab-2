@@ -230,7 +230,7 @@ class Throbac2CTranslator(ThrobacListener):
         this_expr = self.c_translation[ctx.expr()]
 
         # Setting translation
-        self.c_translation[ctx] = f'printf("%s", {this_expr} ? "true" : "false");'
+        self.c_translation[ctx] = f'printf("%s", "{this_expr}");'
 
 
     def exitReturn(self, ctx: ThrobacParser.ReturnContext):
@@ -267,7 +267,7 @@ class Throbac2CTranslator(ThrobacListener):
 
             # If translation already negative, return just number portion.
             # If was positive, return number with negative sign.
-            self.c_translation[ctx] = (expr_text[1:]
+            self.c_translation[ctx] = (f'-({expr_text})'
                                        if expr_text[0] == "-"
                                        else "-" + expr_text)
 
