@@ -7,8 +7,7 @@ tree, which is the `ScriptContext` node.
 Author: OCdt Aaron Brown and OCdt Liethan Velasco
 
 Notes:
-    - check in with prof about zero-terminated strings. The code
-    that was given to us does not utilize them at all. 
+
 
 Version: February 9 2023.
 """
@@ -39,7 +38,6 @@ class Throbac2CTranslator(ThrobacListener):
     def __init__(self):
         self.c_translation = {}
 
-    # --- provided for you
 
     def exitNumber(self, ctx: ThrobacParser.NumberContext):
         throbac_number = ctx.getText()
@@ -49,13 +47,17 @@ class Throbac2CTranslator(ThrobacListener):
         # str(int(...)) removes leading zeroes, since C doesn't permit them
         self.c_translation[ctx] = str(int(number))
 
+
     def exitString(self, ctx: ThrobacParser.StringContext):
         throbac = ctx.getText()
         c_with_pluses = f'"{throbac.strip("^")}"'
         self.c_translation[ctx] = c_with_pluses.replace('+', r'\n')  # note the raw string
 
+
     def exitScript(self, ctx: ThrobacParser.ScriptContext):
+
         funcDefList = [self.c_translation[this_dec] for this_dec in ctx.funcDef()]
+
         #checks if file is empty first
         if len(self.c_translation[ctx.main()]) > 0:
             # includes the libraries required to run a throbac file
@@ -63,10 +65,13 @@ class Throbac2CTranslator(ThrobacListener):
 
             # makes the function declarations before the main statement
             for dec in funcDefList:
+
                 sepreatedLines = dec.splitlines()
                 funcDec = sepreatedLines[0]
+
                 # removes the " {" and replaces it with a ";"
                 funcDec = funcDec[:-2] + ";"
+
                 self.c_translation[ctx] += f'\n{funcDec}'
 
             funcDef = '\n'.join(funcDefList)
@@ -74,7 +79,9 @@ class Throbac2CTranslator(ThrobacListener):
         else:
             self.c_translation[ctx] = ""
 
+
     def exitFuncDef(self, ctx: ThrobacParser.FuncDefContext):
+
         # Unpack the namedefs
         if ctx.nameDef is not None:
             nameDef_list = [self.c_translation[n] for n in ctx.nameDef()]
@@ -85,7 +92,7 @@ class Throbac2CTranslator(ThrobacListener):
         # Get ID token
         this_id = ctx.ID().getText()
 
-        # Get the body translation
+        # Get the body translation with tabulations
         this_body = "\n\t".join(self.c_translation[ctx.body()].splitlines())
 
         # return for TYPE could be none
@@ -99,7 +106,9 @@ class Throbac2CTranslator(ThrobacListener):
 
         self.c_translation[ctx] = f'{this_return} {this_id}({nameDef_str}) {{\n\t{this_body}\n}}'
 
+
     def exitMain(self, ctx: ThrobacParser.MainContext):
+
         # separated the strings lines in order to add tabulations
         # and to check if there is a return statement
         separatedLines = self.c_translation[ctx.body()].splitlines()
@@ -117,7 +126,9 @@ class Throbac2CTranslator(ThrobacListener):
         else:
             self.c_translation[ctx] = ""
 
+
     def exitBody(self, ctx: ThrobacParser.BodyContext):
+
         this_block = self.c_translation[ctx.block()]
         this_vblock = self.c_translation[ctx.varBlock()]
 
@@ -129,7 +140,9 @@ class Throbac2CTranslator(ThrobacListener):
 
         self.c_translation[ctx] = f'{this_vblock}{newLineStr}{this_block}'
 
+
     def exitVarDec(self, ctx: ThrobacParser.VarDecContext):
+
         # Finding initial assignment value
         this_type = ctx.nameDef().TYPE().getText()
         init_str = ("= 0" if this_type == "NUMERUS" else
@@ -142,7 +155,9 @@ class Throbac2CTranslator(ThrobacListener):
         # Setting translation
         self.c_translation[ctx] = f'{this_nameDef} {init_str};'
 
+
     def exitNameDef(self, ctx: ThrobacParser.NameDefContext):
+
         # Getting lexical tokens
         this_id = ctx.ID().getText()
         this_type = ctx.TYPE().getText()
@@ -155,18 +170,22 @@ class Throbac2CTranslator(ThrobacListener):
         # Setting the translation
         self.c_translation[ctx] = f'{str_id} {this_id}'
 
+
     def exitVarBlock(self, ctx: ThrobacParser.VarBlockContext):
         decList = [self.c_translation[this_dec] for this_dec in ctx.varDec()]
         self.c_translation[ctx] = '\n'.join(decList)
+
 
     def exitBlock(self, ctx: ThrobacParser.BlockContext):
         statementList = [self.c_translation[this_statement] for this_statement in ctx.statement()]
         self.c_translation[ctx] = '\n'.join(statementList)
 
+
     def exitAssignment(self, ctx: ThrobacParser.AssignmentContext):
         ID = ctx.ID().getText()
         expr = self.c_translation[ctx.expr()]
         self.c_translation[ctx] = f'{ID} = {expr};'
+
 
     def exitWhile(self, ctx: ThrobacParser.WhileContext):
         expr = self.c_translation[ctx.expr()]
@@ -174,6 +193,7 @@ class Throbac2CTranslator(ThrobacListener):
 
         # using double { escapes. print('{{') = '{'
         self.c_translation[ctx] = f'while ({expr}) {{\n\t{block}\n}}'
+
 
     def exitIf(self, ctx: ThrobacParser.IfContext):
         expr = self.c_translation[ctx.expr()]
@@ -185,12 +205,14 @@ class Throbac2CTranslator(ThrobacListener):
             block2 = "\n\t".join(self.c_translation[ctx.block(1)].splitlines())
             self.c_translation[ctx] = f'{self.c_translation[ctx]} else {{\n\t{block2}\n}}'
 
+
     def exitPrintNumber(self, ctx: ThrobacParser.PrintNumberContext):
         # Retrieving expr value
         this_expr = self.c_translation[ctx.expr()]
 
         # Setting translation
         self.c_translation[ctx] = f'printf("%d", {this_expr});'
+
 
     def exitPrintString(self, ctx: ThrobacParser.PrintStringContext):
         # Retrieving expr value
@@ -199,12 +221,14 @@ class Throbac2CTranslator(ThrobacListener):
         # Setting translation
         self.c_translation[ctx] = f'printf("%s", {this_expr});'
 
+
     def exitPrintBool(self, ctx: ThrobacParser.PrintBoolContext):
         # Retrieving expr value
         this_expr = self.c_translation[ctx.expr()]
 
         # Setting translation
         self.c_translation[ctx] = f'printf("%s", "{this_expr}");'
+
 
     def exitReturn(self, ctx: ThrobacParser.ReturnContext):
         # Account for no expr added in return statement
@@ -214,12 +238,15 @@ class Throbac2CTranslator(ThrobacListener):
             this_expr = self.c_translation[ctx.expr()]
             self.c_translation[ctx] = f"return {this_expr};"
 
+
     def exitFuncCallStmt(self, ctx: ThrobacParser.FuncCallStmtContext):
         # Just the function call, but with ';'
         self.c_translation[ctx] = self.c_translation[ctx.funcCall()] + ';'
 
+
     def exitParens(self, ctx: ThrobacParser.ParensContext):
         self.c_translation[ctx] = f'({self.c_translation[ctx.expr()]})'
+
 
     def exitNegation(self, ctx: ThrobacParser.NegationContext):
         # Getting expr translation
@@ -241,6 +268,7 @@ class Throbac2CTranslator(ThrobacListener):
                                        if expr_text[0] == "-"
                                        else "-" + expr_text)
 
+
     def exitCompare(self, ctx: ThrobacParser.CompareContext):
         left = self.c_translation[ctx.expr(0)]
         right = self.c_translation[ctx.expr(1)]
@@ -258,10 +286,12 @@ class Throbac2CTranslator(ThrobacListener):
                                                            if ctx.op.text == 'SUPRA'
                                                            else f'{left} >= {right}')))))
 
+
     def exitConcatenation(self, ctx: ThrobacParser.ConcatenationContext):
         left = self.c_translation[ctx.expr(0)]
         right = self.c_translation[ctx.expr(1)]
         self.c_translation[ctx] = f'__throbac_cat({left}, {right})'
+
 
     def exitBool(self, ctx: ThrobacParser.BoolContext):
         throbac_bool = ctx.getText()
@@ -269,8 +299,10 @@ class Throbac2CTranslator(ThrobacListener):
                                    if throbac_bool == "VERUM"
                                    else "false")
 
+
     def exitVariable(self, ctx: ThrobacParser.VariableContext):
         self.c_translation[ctx] = ctx.getText()
+
 
     def exitAddSub(self, ctx: ThrobacParser.AddSubContext):
         # Retrieve translations of left and right children
@@ -282,9 +314,11 @@ class Throbac2CTranslator(ThrobacListener):
                                    if ctx.op.text == 'ADDO'
                                    else f'{left} - {right}')
 
+
     def exitFuncCallExpr(self, ctx: ThrobacParser.FuncCallExprContext):
         # Just the function call
         self.c_translation[ctx] = self.c_translation[ctx.funcCall()]
+
 
     def exitMulDiv(self, ctx: ThrobacParser.MulDivContext):
         # gets the values of the left and right node
@@ -295,6 +329,7 @@ class Throbac2CTranslator(ThrobacListener):
         self.c_translation[ctx] = (f'{left} * {right}'
                                    if ctx.op.text == 'CONGERO'
                                    else f'{left} / {right}')
+
 
     def exitFuncCall(self, ctx: ThrobacParser.FuncCallContext):
         this_id = ctx.ID().getText()
