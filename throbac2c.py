@@ -127,7 +127,7 @@ class Throbac2CTranslator(ThrobacListener):
             body = "\n\t".join(separatedLines)
             self.c_translation[ctx] = f'int main() {{\n\t{body}\n{returnstr}}}'
         else:
-            self.c_translation[ctx] = ""
+            self.c_translation[ctx] = "int main(){\n\n}"
 
 
     def exitBody(self, ctx: ThrobacParser.BodyContext):
